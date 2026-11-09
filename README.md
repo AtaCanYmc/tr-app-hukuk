@@ -1,115 +1,193 @@
 <p align="center">
-  <img src="./assets/logo.svg" alt="tr-app-hukuk logo" width="96" height="96" />
+  <img src="./assets/logo.svg" alt="tr-app-hukuk logo" width="112" height="112" />
 </p>
 
 <h1 align="center">tr-app-hukuk</h1>
 
 <p align="center">
-  Türkiye mevzuatı ve KVKK uyumluluğu için sıfır bağımlılıklı AI denetim yeteneği.
+  <strong>Yapay zeka kodlama asistanları için Türkiye mevzuatı ve KVKK denetim yeteneği.</strong>
 </p>
 
 <p align="center">
-  <a href="https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml"><img src="https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg" alt="CI Durumu" /></a>
-  <a href="https://github.com/AtaCanYmc/tr-app-hukuk/releases"><img src="https://img.shields.io/github/v/release/AtaCanYmc/tr-app-hukuk?style=flat&color=2563EB" alt="GitHub Sürümü" /></a>
-  <img src="https://img.shields.io/badge/dependencies-0-success.svg?style=flat" alt="Sıfır Bağımlılık" />
-  <a href="./LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat" alt="Lisans" /></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/Lisans-MIT-blue.svg" alt="Lisans: MIT" /></a>
+  <a href=".github/workflows/ci.yml"><img src="https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
+  <a href="skills/tr-app-hukuk/SKILL.md"><img src="https://img.shields.io/badge/Yetenek-AI%20Agent-purple.svg" alt="Yetenek: AI Agent" /></a>
+  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/Durum-Kullan%C4%B1ma%20Haz%C4%B1r-brightgreen.svg" alt="Durum: Kullanıma Hazır" /></a>
+  <a href="#denetim-kapsamı-ve-cezai-üst-sınırlar"><img src="https://img.shields.io/badge/Mevzuat-2026%20G%C3%BCncel-orange.svg" alt="Mevzuat: 2026" /></a>
+  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/Y%C3%B6neti%C5%9Fim-Conventional%20Commits-blueviolet.svg" alt="Yönetişim: Conventional Commits" /></a>
 </p>
+
+---
+
+## Genel Bakış
+
+`tr-app-hukuk`, Türkiye'de yayında olan ya da yayına girecek mobil ve web uygulamalarının kaynak kodlarını Türk tüketici, ticaret, telif, internet yayıncılığı ve kişisel verilerin korunması mevzuatına göre denetleyen açık kaynaklı bir yapay zeka sistem yeteneğidir (AI agent skill).
+
+Claude Code, Cursor, Google Antigravity, GitHub Copilot, Gemini CLI ve Windsurf ortamlarıyla tam uyumludur. Jenerik ve yüzeysel yapay zeka yanıtları yerine; projenin gerçek mimarisini tarar, dosya ve satır numaralarıyla kesin referanslar üretir ve 2026 yılı yasal ceza risklerini raporlar.
+
+NPM yayını veya harici paket yükleme zorunluluğu yoktur. Node.js standart kütüphanesini kullanır ve sıfır harici bağımlılıkla çalışır.
 
 ---
 
 ## İçindekiler
 
 - [Genel Bakış](#genel-bakış)
-- [Hızlı Başlangıç](#hızlı-başlangıç)
-- [Desteklenen Yapay Zeka Araçları](#desteklenen-yapay-zeka-araçları)
+- [Teknik Prensipler](#teknik-prensipler)
+- [Kurulum](#kurulum)
+  - [Ajan Uyumluluk Matrisi](#ajan-uyumluluk-matrisi)
+  - [Yöntem 1: Skills CLI (Önerilen)](#yöntem-1-skills-cli-npx-skills-add---önerilen)
+  - [Yöntem 2: Doğrudan Kurulum (npx github:)](#yöntem-2-doğrudan-kurulum-npx-github)
+  - [Yöntem 3: Manuel Yapılandırma](#yöntem-3-manuel-yapılandırma)
+- [Hızlı Başlangıç ve Kullanım Senaryoları](#hızlı-başlangıç-ve-kullanım-senaryoları)
+- [Denetim Kapsamı ve Cezai Üst Sınırlar](#denetim-kapsamı-ve-cezai-üst-sınırlar)
 - [Çalışma Mimarisi](#çalışma-mimarisi)
-- [Denetim Kapsamı ve Cezai Sınırlar](#denetim-kapsamı-ve-cezai-sınırlar)
 - [Depo Mimarisi](#depo-mimarisi)
 - [Sıkça Sorulan Sorular](#sıkça-sorulan-sorular)
-- [Geliştirme ve Test](#geliştirme-ve-test)
+- [Yönetişim ve Belgeler](#yönetişim-ve-belgeler)
 - [Lisans](#lisans)
 
 ---
 
-## Genel Bakış
+## Teknik Prensipler
 
-`tr-app-hukuk`, Türkiye'de yayında olan veya yayına girecek mobil ve web uygulamalarının kaynak kodlarını Türk tüketici, ticaret, telif ve kişisel veri mevzuatına göre denetleyen bir AI sistem yeteneğidir.
+- **Sıfır Halüsinasyon ve Doğrulama**: Tahmin yürütmez. Kodda kesin olarak görülemeyen veya doğrulanamayan başlıklar için net olarak `Doğrulanamadı` veya `Bulunamadı` etiketi verir.
+- **Kesin Satır Referansları**: Tüm bulguları `dosya_yolu:satır_numarası` formatında raporlar.
+- **Salt Okunur Denetim Modu**: Kullanıcı açıkça onay verip talep etmediği sürece kaynak kod dosyalarında hiçbir değişiklik yapmaz.
+- **2026 Mevzuat Kalibrasyonu**: Cezai üst sınırlar, Hazine ve Maliye Bakanlığı'nın 2026 yılı için açıkladığı yüzde 25,49 yeniden değerleme oranına göre hesaplanmış güncel tutarlardır.
+- **İsteğe Bağlı Markdown Raporlama**: Tarama sonunda kullanıcıya sorar; onay verilirse projenin kök dizininde yapısal bir `hukuk-denetim-raporu.md` dosyası üretir.
 
-NPM yayını gerektirmez; doğrudan GitHub reposu üzerinden `npx` ile çalıştırılabilir. Harici bağımlılık barındırmaz. Node.js standart kütüphanesi üzerinde çalışır; Claude Code, Cursor, Gemini, GitHub Copilot ve Windsurf ortamlarına saniyeler içinde kurulur.
+---
 
-## Hızlı Başlangıç
+## Kurulum
 
-Hedef projenizin kök dizininde aşağıdaki yöntemlerden biriyle tek komutta kurun:
+`tr-app-hukuk`, Vercel Labs açık `skills` ekosistemi üzerinden ya da projenin dahili CLI aracıyla doğrudan GitHub üzerinden kurulabilir.
 
-### Yöntem 1: Skills CLI ile Kurulum (Önerilen)
-Vercel Labs açık yapay zeka yetenek ekosistemi üzerinden doğrudan kurabilirsiniz:
+### Ajan Uyumluluk Matrisi
+
+| Yapay Zeka Aracı | Global Yetenek Dizini | Çalışma Alanı (Proje) Yolu | Durum |
+| :--- | :--- | :--- | :---: |
+| **Claude Code** | `~/.claude/skills/` | `.claude/skills/tr-app-hukuk/` | Doğrulandı |
+| **Cursor** | `~/.cursor/skills/` | `.cursor/skills/tr-app-hukuk/` | Doğrulandı |
+| **Google Antigravity / Gemini CLI** | `~/.gemini/antigravity/skills/` | `.gemini/skills/tr-app-hukuk/` | Doğrulandı |
+| **GitHub Copilot CLI / Codex** | `~/.codex/skills/` | `.github/skills/tr-app-hukuk/` | Doğrulandı |
+| **Windsurf / Cascade** | `~/.windsurf/skills/` | `.windsurf/skills/tr-app-hukuk/` | Doğrulandı |
+
+---
+
+### Yöntem 1: Skills CLI (`npx skills add` - Önerilen)
+
+Yapay zeka kodlama asistanları için standart paket yöneticisi olan `skills` CLI ile tek komutta kurun:
 
 ```bash
+# Aktif proje çalışma alanına ekleyin
 npx skills add AtaCanYmc/tr-app-hukuk
+
+# Makinenizdeki tüm algılanan ajanlar için global kurun
+npx skills add AtaCanYmc/tr-app-hukuk -g
+
+# Etkileşimsiz olarak belirli ajanlara kurun
+npx skills add AtaCanYmc/tr-app-hukuk --agent claude-code cursor antigravity -y
 ```
 
-Bu komut projenizdeki aktif yapay zeka asistanını (Claude Code, Cursor, Copilot, Gemini, Windsurf vb.) otomatik tespit eder ve yeteneği bağlar.
+---
 
-### Yöntem 2: Standart GitHub CLI ile Kurulum
-Ek bir paket yüklemeden doğrudan deponun yerel kurucusunu çalıştırabilirsiniz:
+### Yöntem 2: Doğrudan Kurulum (`npx github:`)
+
+NPM kayıt defterine gerek kalmadan doğrudan bu deponun dahili kurulum betiğini çalıştırın:
 
 ```bash
 # Claude Code için varsayılan kurulum
 npx github:AtaCanYmc/tr-app-hukuk
 
-# Ya da hedef belirterek kurulum
+# Ya da hedef ajan belirterek kurulum yapın
 npx github:AtaCanYmc/tr-app-hukuk --target=cursor
+npx github:AtaCanYmc/tr-app-hukuk --target=gemini
+npx github:AtaCanYmc/tr-app-hukuk --target=copilot
+npx github:AtaCanYmc/tr-app-hukuk --target=windsurf
+
+# Tüm desteklenen ajanlar için aynı anda kurun
+npx github:AtaCanYmc/tr-app-hukuk --target=all
 ```
-
-Kurulumun ardından asistanınıza şu komutu verin:
-
-```text
-"Projemi hukuki olarak tara"
-```
-
-Asistan projeyi statik olarak inceler, dosya ve satır referanslarıyla risk tablosu çıkarır. Tarama sonunda onay verirseniz sonuçları `hukuk-denetim-raporu.md` dosyasına kaydeder.
 
 ---
 
-## Desteklenen Yapay Zeka Araçları
-
-`npx skills add AtaCanYmc/tr-app-hukuk` komutu ortamdaki asistanı otomatik tespit eder. Alternatif olarak deponun dahili kurucusuyla hedefe özel kurulum yapabilirsiniz:
-
-| Yapay Zeka Aracı | Standart Kurulum (`skills`) | Doğrudan Kurulum (`npx github:`) | Oluşturulan Dizin |
-|---|---|---|---|
-| **Claude Code** | `npx skills add AtaCanYmc/tr-app-hukuk` | `npx github:AtaCanYmc/tr-app-hukuk` | `.claude/skills/tr-app-hukuk/` |
-| **Cursor** | `npx skills add AtaCanYmc/tr-app-hukuk` | `npx github:AtaCanYmc/tr-app-hukuk --target=cursor` | `.cursor/skills/tr-app-hukuk/` |
-| **Gemini Code Assist** | `npx skills add AtaCanYmc/tr-app-hukuk` | `npx github:AtaCanYmc/tr-app-hukuk --target=gemini` | `.gemini/skills/tr-app-hukuk/` |
-| **GitHub Copilot** | `npx skills add AtaCanYmc/tr-app-hukuk` | `npx github:AtaCanYmc/tr-app-hukuk --target=copilot` | `.github/skills/tr-app-hukuk/` |
-| **Windsurf / Cascade** | `npx skills add AtaCanYmc/tr-app-hukuk` | `npx github:AtaCanYmc/tr-app-hukuk --target=windsurf` | `.windsurf/skills/tr-app-hukuk/` |
-| **Tüm Araçlar (Toplu)** | — | `npx github:AtaCanYmc/tr-app-hukuk --target=all` | Yukarıdaki tüm dizinler |
-
-### Araca Özel Kullanım Detayları
+### Yöntem 3: Manuel Yapılandırma
 
 #### 1. Claude Code
-Kurulumdan sonra Claude Code doğrudan `.claude/skills/` altındaki tanımları tanır. Terminalde `claude` oturumu açıp *"Projemi hukuki olarak tara"* demeniz yeterlidir.
+```bash
+mkdir -p .claude/skills/tr-app-hukuk
+git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
+cp -r /tmp/tr-app-hukuk/skills/tr-app-hukuk/* .claude/skills/tr-app-hukuk/
+rm -rf /tmp/tr-app-hukuk
+```
 
 #### 2. Cursor
-`.cursor/skills/tr-app-hukuk/` altına kurulan kuralları Composer veya Chat üzerinde doğrudan çağırabilirsiniz. Dilerseniz `.cursor/rules/tr-hukuk.mdc` adında bir kural dosyası oluşturup içeriğine `skills/tr-app-hukuk/SKILL.md` metnini ekleyerek her zaman aktif tutabilirsiniz.
+```bash
+mkdir -p .cursor/skills/tr-app-hukuk
+git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
+cp -r /tmp/tr-app-hukuk/skills/tr-app-hukuk/* .cursor/skills/tr-app-hukuk/
+rm -rf /tmp/tr-app-hukuk
+```
+
+Dilerseniz `.cursor/rules/tr-hukuk.mdc` adında bir kural dosyası oluşturup içeriğine `skills/tr-app-hukuk/SKILL.md` metnini ekleyerek her sohbette otomatik aktif tutabilirsiniz.
 
 #### 3. GitHub Copilot
-Projeye eklenen `.github/skills/tr-app-hukuk/` yapısını Copilot Chat içinde `@workspace` komutuyla birlikte kullanabilirsiniz:
-```text
-@workspace .github/skills/tr-app-hukuk/SKILL.md dosyasındaki kurallara göre projemi hukuki olarak denetle.
-```
-Alternatif olarak `.github/copilot-instructions.md` dosyanıza `SKILL.md` özetini ekleyebilirsiniz.
-
-#### 4. Windsurf (Cascade)
-Windsurf ortamında Cascade sohbetine şu komutu verebilirsiniz:
-```text
-.windsurf/skills/tr-app-hukuk/SKILL.md kılavuzunu oku ve projeyi Türkiye yasalarına göre denetle.
-```
-
-#### 5. Aider / CLI Araçları
-Aider oturumunu başlatırken kural dosyasını referans verin:
 ```bash
-aider --read .claude/skills/tr-app-hukuk/SKILL.md
+mkdir -p .github/skills/tr-app-hukuk
+git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
+cp -r /tmp/tr-app-hukuk/skills/tr-app-hukuk/* .github/skills/tr-app-hukuk/
+rm -rf /tmp/tr-app-hukuk
 ```
+
+Copilot Chat üzerinde `@workspace .github/skills/tr-app-hukuk/SKILL.md kurallarına göre projemi hukuki olarak incele` ifadesiyle çalıştırabilirsiniz.
+
+---
+
+## Hızlı Başlangıç ve Kullanım Senaryoları
+
+Yeteneği kurduktan sonra yapay zeka asistanınızın sohbet ekranına aşağıdaki komutlardan birini verin:
+
+### Senaryo 1: Genel Yasal Uyumluluk Taraması
+
+> **Komut:** `"Projemi hukuki olarak tara"` veya `"Uygulamamı Türkiye yasalarına göre denetle"`
+
+Asistan projenin platformunu (iOS, Android, Web), harici servislerini (ödeme, e-posta, analitik, veritabanı) ve toplanan kullanıcı verilerini tespit eder. Altı başlık altında bulguları tablo halinde listeler.
+
+### Senaryo 2: Yurt Dışı Veri Çıkışı ve KVKK Taraması
+
+> **Komut:** `"KVKK m.9 ve m.12 kapsamında yurt dışı veri çıkışlarımı ve yazı tipi CDN isteklerimi incele"`
+
+Harici Google Fonts, Sentry, Mixpanel, Firebase veya Datadog SDK çağrılarını inceler; kullanıcı IP adresi, telemetri veya form girdilerinin yurt dışı sunuculara aktarılıp aktarılmadığını tespit eder.
+
+### Senaryo 3: Ödeme ve Abonelik Ekranı Denetimi
+
+> **Komut:** `"6502 sayılı Kanun kapsamında ödeme ve abonelik iptal akışlarımı denetle"`
+
+Abonelik iptal mekanizmalarını, yenileme periyotlarını, deneme sürümü sonu otomatik çekim şartlarını ve onay adımlarını kontrol eder.
+
+### Senaryo 4: Rapor Dosyası Üretimi ve Düzeltme
+
+Tarama bittiğinde asistan şu soruyu yöneltir:
+> *"Bu denetim sonuçlarını projenize `hukuk-denetim-raporu.md` dosyası olarak kaydetmek ister misiniz?"*
+
+Onay verdiğinizde rapor kök dizine yazılır. Ardından asistan düzeltmek istediğiniz maddeler için minimum kod diff'i üretir.
+
+---
+
+## Denetim Kapsamı ve Cezai Üst Sınırlar
+
+Aşağıdaki cezai üst sınırlar, 2026 yılı için belirlenen yüzde 25,49 yeniden değerleme oranı esas alınarak hesaplanmıştır:
+
+| No | Yasal Dayanak | Denetim Kapsamı | 2026 Yasal Üst Sınırı | İlgili Madde |
+|---|---|---|---|---|
+| **1** | **6502 sayılı Kanun** | Ödeme ekranı, abonelik yenileme periyodu, cayma hakkı ve gizli yenileme şartları | **10.837.065 TL** *(Haksız ticari uygulama)*<br>**3.973 TL** *(İşlem başına)* | m.62, m.77/1-a, m.77/13 |
+| **2** | **6563 sayılı Kanun** | Ticari iletilerde gönderen kimliği, ret hakkı bağlantısı ve onaysız gönderimler | **42.930 TL** *(Ret linki yokluğu)*<br>**28.620 TL** *(Kimlik eksikliği)* | m.12 |
+| **3** | **5846 sayılı FSEK** | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | **365.000 TL** *(Adli para cezası veya hapis)* | m.71 |
+| **4** | **5651 sayılı Kanun** | Yer sağlayıcı künyesi, hukuka aykırı içerik şikayet kanalı ve trafik logları | **1.000.000 TL** *(Kanuni nominal tutar)* | m.5, m.6 |
+| **5** | **6698 sayılı KVKK** | Toplanan verilerin amacı, saklama süresi ve aydınlatma metninin ilk temastan önce sunulması | **1.709.200 TL** *(Aydınlatma yükümlülüğü)* | m.10, m.18/1-a |
+| **6** | **6698 sayılı KVKK** | Yurt dışına veri aktarımı (CDN, fonts, analitik) ve veri güvenliği ihlalleri | **17.092.242 TL** *(Kurul tavan uygulaması)* | m.9, m.12, m.18/1-b |
+
+Detaylı kanun metinleri ve bent incelemeleri için [`skills/tr-app-hukuk/references`](skills/tr-app-hukuk/references) dizinine başvurabilirsiniz.
 
 ---
 
@@ -117,32 +195,15 @@ aider --read .claude/skills/tr-app-hukuk/SKILL.md
 
 ```mermaid
 flowchart LR
-    A["npx github:AtaCanYmc/tr-app-hukuk"] -->|"Kurulum"| B["Yerel Yetenek Dizini (.claude, .cursor, .gemini)"]
+    A["npx skills add AtaCanYmc/tr-app-hukuk"] -->|"Otomatik Algılama"| B["Yerel Yetenek Dizini\n(.claude, .cursor, .gemini)"]
     B --> C["AI Asistan Oturumu"]
-    C -->|"Komut: 'Hukuki tarama yap'"| D["Statik Kod İncelemesi"]
-    D --> E["Tablo ve Risk Analizi"]
+    C -->|"Komut: 'Hukuki tarama yap'"| D["Statik Kod İncelemesi\n(Salt Okunur)"]
+    D --> E["Risk ve Ceza Analizi Tablosu"]
     E --> F{"Markdown Raporu İstendi mi?"}
-    F -->|"Evet"| G["hukuk-denetim-raporu.md"]
-    F -->|"Hayır"| H["Kod Düzeltme Adımı"]
+    F -->|"Evet"| G["hukuk-denetim-raporu.md\n(Kök Dizine Kayıt)"]
+    F -->|"Hayır"| H["Hedefe Yönelik Kod Düzeltmesi"]
     G --> H
 ```
-
----
-
-## Denetim Kapsamı ve Cezai Sınırlar
-
-Aşağıdaki cezai üst sınırlar, Hazine ve Maliye Bakanlığı'nın 2026 yılı için belirlediği yüzde 25,49 yeniden değerleme oranı esas alınarak hesaplanmıştır.
-
-| No | Yasal Dayanak | Denetim Kapsamı | 2026 Üst Sınır |
-|---|---|---|---|
-| 1 | 6502 sayılı Kanun | Ödeme adımı, abonelik yenileme şeffaflığı, cayma hakkı ve gizli yenileme şartları | 10.837.065 TL *(m.77/13)* |
-| 2 | 6563 sayılı Kanun | Ticari e-postalarda gönderen unvanı, ret hakkı linki ve onaysız gönderimler | 42.930 TL *(ret linki yokluğu)* |
-| 3 | 5846 sayılı FSEK | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | 365.000 TL *(adli para cezası / hapis)* |
-| 4 | 5651 sayılı Kanun | Yer sağlayıcı künyesi, hukuka aykırı içerik şikayet kanalı, erişim logları | 1.000.000 TL *(kanuni nominal tutar)* |
-| 5 | 6698 sayılı KVKK m.10 | Toplanan verilerin amacı, saklama süresi ve aydınlatma metninin ilk temastan önce sunulması | 1.709.200 TL *(m.18/1-a)* |
-| 6 | 6698 sayılı KVKK m.9/12 | Yurt dışı sunuculara veri aktarımı (CDN, fonts, analitik, logger) ve veri güvenliği | 17.092.242 TL *(Kurul tavan uygulaması)* |
-
-Detaylı kanun maddeleri ve gerekçeleri için [`skills/tr-app-hukuk/references/`](skills/tr-app-hukuk/references/) dizinini inceleyebilirsiniz.
 
 ---
 
@@ -151,62 +212,58 @@ Detaylı kanun maddeleri ve gerekçeleri için [`skills/tr-app-hukuk/references/
 ```text
 tr-app-hukuk/
 ├── .github/
-│   ├── dependabot.yml
+│   ├── dependabot.yml               # Haftalık otomatik bağımlılık ve eylem güncellemeleri
 │   └── workflows/
-│       ├── ci.yml
-│       └── release.yml
+│       ├── ci.yml                   # Sürekli entegrasyon (Node 18, 20, 22 test matrisi)
+│       └── release.yml              # Release Please ile otomatik sürüm ve changelog
 ├── assets/
-│   └── logo.svg
+│   └── logo.svg                     # Vektörel açık/koyu tema uyumlu logo
 ├── skills/
 │   └── tr-app-hukuk/
 │       ├── references/
-│       │   ├── ceza-limitleri-2026.md
-│       │   └── kanun-maddeleri.md
-│       ├── README.md
-│       └── SKILL.md
-├── CHANGELOG.md
-├── CODE_OF_CONDUCT.md
-├── CONTRIBUTING.md
-├── LICENSE
-├── README.md
-├── ROADMAP.md
-├── install.js
-├── package.json
-└── test.js
+│       │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme cezai üst limitleri
+│       │   └── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
+│       ├── README.md                # Yeteneğe özel alt klasör kılavuzu
+│       └── SKILL.md                 # Asistanın yürüttüğü ana sistem talimatı
+├── CHANGELOG.md                     # Sürüm değişiklik kayıtları
+├── CODE_OF_CONDUCT.md               # Katılımcı davranış kuralları
+├── CONTRIBUTING.md                  # Katkı kılavuzu ve Conventional Commits standardı
+├── LICENSE                          # MIT Lisansı
+├── README.md                        # Ana depo dokümantasyonu
+├── ROADMAP.md                       # Teknik geliştirme kilometre taşları
+├── SECURITY.md                      # Güvenlik açığı bildirim politikası ve SLA
+├── install.js                       # Sıfır bağımlılıklı taşınabilir kurulum CLI betiği
+├── package.json                     # NPM paket tanımı ve ikili komut eşlemeleri
+└── test.js                          # Dahili test paketi (çoklu hedef kurulum simülasyonu)
 ```
 
 ---
 
 ## Sıkça Sorulan Sorular
 
-### NPM kaydı olmadan GitHub üzerinden nasıl çalışıyor?
-`npx`, `github:kullanici/repo` söz dizimini yerel olarak destekler. `npx github:AtaCanYmc/tr-app-hukuk` komutunu verdiğinizde NPM Registry'e gerek kalmadan GitHub'daki en güncel sürüm anında indirilir ve çalıştırılır.
+#### Bu araç kaynak kodlarımı harici sunuculara veya telemetri sistemlerine gönderir mi?
+Hayır. `tr-app-hukuk` tamamen yerel dosyalardan oluşan statik bir yapay zeka yeteneğidir. Çalıştırma sırasında harici ağ istekleri atmaz, telemetri toplamaz ve kodlarınızı üçüncü şahıslara iletmez. İnceleme tamamen kendi yerel yapay zeka asistanınızın oturumu içinde gerçekleşir.
 
-### Bu araç kaynak kodlarımı harici sunuculara gönderir mi?
-Hayır. Komut yalnızca projenize yerel markdown şablonlarını kopyalar. Kod analizi tamamen sizin yerel yapay zeka oturumunuz içinde gerçekleşir. Harici bir telemetri veya veri toplama mekanizması bulunmaz.
+#### NPM Registry üzerinde yayınlanmadan GitHub üzerinden nasıl kuruluyor?
+`npx skills add AtaCanYmc/tr-app-hukuk` komutu, Vercel Labs `skills` motoru üzerinden doğrudan GitHub deposunu çözümler. Ayrıca `npx github:AtaCanYmc/tr-app-hukuk` komutu, `npx`'in yerel GitHub protokol desteğini kullanarak deponun `install.js` betiğini çalıştırır.
 
-### Projede harici npm bağımlılığı var mı?
-Hayır. Paket tamamen Node.js standart kütüphanesi (`node:fs`, `node:path`) ile çalışır. Bu sayede indirme süresi saniyeler sürer ve bağımlılık kaynaklı güvenlik riskleri oluşmaz.
+#### 2026 yılı ceza tutarları neye göre belirlendi?
+Hazine ve Maliye Bakanlığı'nın Vergi Usul Kanunu Genel Tebliği ile 2026 yılı için ilan ettiği yüzde 25,49 yeniden değerleme oranı, kanunlardaki mevcut maktu ceza tutarlarına uygulanarak hesaplanmıştır.
 
-### Birden fazla asistanı aynı anda kullanabilir miyim?
-Evet. `npx github:AtaCanYmc/tr-app-hukuk --target=all` komutunu çalıştırarak tüm desteklenen asistanlar için gerekli dizinleri aynı anda oluşturabilirsiniz.
+#### Yetenek birden fazla yapay zeka aracında aynı anda kullanılabilir mi?
+Evet. `npx github:AtaCanYmc/tr-app-hukuk --target=all` komutunu çalıştırarak projenizde Claude Code, Cursor, Gemini, Copilot ve Windsurf için gerekli tüm yetenek dizinlerini tek hamlede oluşturabilirsiniz.
 
 ---
 
-## Geliştirme ve Test
+## Yönetişim ve Belgeler
 
-Projeyi klonladıktan sonra yerel test paketini çalıştırmak için:
-
-```bash
-git clone https://github.com/AtaCanYmc/tr-app-hukuk.git
-cd tr-app-hukuk
-npm test
-```
-
-Test paketi geçici bir dizinde tüm hedef dizin varyasyonlarını (`claude`, `cursor`, `gemini`, `copilot`, `windsurf`) doğrular.
+- [Katkı Kılavuzu (Contributing)](CONTRIBUTING.md)
+- [Güvenlik Politikası (Security Policy)](SECURITY.md)
+- [Teknik Yol Haritası (Roadmap)](ROADMAP.md)
+- [Değişiklik Günlüğü (Changelog)](CHANGELOG.md)
 
 ---
 
 ## Lisans
 
-Bu proje [MIT Lisansı](./LICENSE) kapsamında sunulmaktadır.
+Bu proje [MIT Lisansı](LICENSE) kapsamında açık kaynak olarak sunulmaktadır.
