@@ -1,21 +1,15 @@
-<p align="center">
-  <img src="./assets/logo.svg" alt="tr-app-hukuk logo" width="112" height="112" />
-</p>
+# tr-app-hukuk
 
-<h1 align="center">tr-app-hukuk</h1>
+![tr-app-hukuk logo](./assets/logo.svg)
 
-<p align="center">
-  <strong>Yapay zeka kodlama asistanları için Türkiye mevzuatı ve KVKK denetim yeteneği.</strong>
-</p>
+**Yapay zeka kodlama asistanları için Türkiye mevzuatı ve KVKK denetim yeteneği.**
 
-<p align="center">
-  <a href="LICENSE"><img src="https://img.shields.io/badge/Lisans-MIT-blue.svg" alt="Lisans: MIT" /></a>
-  <a href=".github/workflows/ci.yml"><img src="https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg" alt="CI" /></a>
-  <a href="skills/tr-app-hukuk/SKILL.md"><img src="https://img.shields.io/badge/Yetenek-AI%20Agent-purple.svg" alt="Yetenek: AI Agent" /></a>
-  <a href="ROADMAP.md"><img src="https://img.shields.io/badge/Durum-Kullan%C4%B1ma%20Haz%C4%B1r-brightgreen.svg" alt="Durum: Kullanıma Hazır" /></a>
-  <a href="#denetim-kapsamı-ve-cezai-üst-sınırlar"><img src="https://img.shields.io/badge/Mevzuat-2026%20G%C3%BCncel-orange.svg" alt="Mevzuat: 2026" /></a>
-  <a href="CONTRIBUTING.md"><img src="https://img.shields.io/badge/Y%C3%B6neti%C5%9Fim-Conventional%20Commits-blueviolet.svg" alt="Yönetişim: Conventional Commits" /></a>
-</p>
+[![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-blue.svg)](LICENSE)
+[![CI](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![Yetenek: AI Agent](https://img.shields.io/badge/Yetenek-AI%20Agent-purple.svg)](skills/tr-app-hukuk/SKILL.md)
+[![Durum: Kullanıma Hazır](https://img.shields.io/badge/Durum-Kullan%C4%B1ma%20Haz%C4%B1r-brightgreen.svg)](ROADMAP.md)
+[![Mevzuat: 2026](https://img.shields.io/badge/Mevzuat-2026%20G%C3%BCncel-orange.svg)](#denetim-kapsamı-ve-cezai-üst-sınırlar)
+[![Yönetişim: Conventional Commits](https://img.shields.io/badge/Y%C3%B6neti%C5%9Fim-Conventional%20Commits-blueviolet.svg)](CONTRIBUTING.md)
 
 ---
 
