@@ -1,0 +1,34 @@
+{
+  "name": "tr-app-hukuk",
+  "version": "1.0.0",
+  "description": "Türkiye mevzuatı ve KVKK için AI kod denetim yeteneği (Claude Code Skill)",
+  "type": "module",
+  "bin": {
+    "tr-app-hukuk": "./install.js",
+    "tr-hukuk": "./install.js"
+  },
+  "files": [
+    "install.js",
+    "skills/"
+  ],
+  "scripts": {
+    "test": "node test.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtaCanYmc/tr-app-hukuk.git"
+  },
+  "bugs": {
+    "url": "https://github.com/AtaCanYmc/tr-app-hukuk/issues"
+  },
+  "homepage": "https://github.com/AtaCanYmc/tr-app-hukuk#readme",
+  "keywords": [
+    "claude",
+    "claude-code",
+    "skill",
+    "kvkk",
+    "hukuk",
+    "denetim"
+  ],
+  "license": "MIT"
+}
