@@ -31,8 +31,9 @@ NPM yayını veya harici paket yükleme zorunluluğu yoktur. Node.js standart k�
   - [Ajan Uyumluluk Matrisi](#ajan-uyumluluk-matrisi)
   - [Yöntem 1: Skills CLI (Önerilen)](#yöntem-1-skills-cli-npx-skills-add---önerilen)
   - [Yöntem 2: Tek Satırlık POSIX Kabuk Kurucusu](#yöntem-2-tek-satırlık-posix-kabuk-kurucusu)
-  - [Yöntem 3: Doğrudan Kurulum (npx github:)](#yöntem-3-doğrudan-kurulum-npx-github)
-  - [Yöntem 4: Manuel Yapılandırma](#yöntem-4-manuel-yapılandırma)
+  - [Yöntem 3: Windows PowerShell Kurucusu](#yöntem-3-windows-powershell-kurucusu)
+  - [Yöntem 4: Doğrudan Kurulum (npx github:)](#yöntem-4-doğrudan-kurulum-npx-github)
+  - [Yöntem 5: Manuel Yapılandırma](#yöntem-5-manuel-yapılandırma)
 - [Hızlı Başlangıç ve Kullanım Senaryoları](#hızlı-başlangıç-ve-kullanım-senaryoları)
 - [Denetim Kapsamı ve Cezai Üst Sınırlar](#denetim-kapsamı-ve-cezai-üst-sınırlar)
 - [Çalışma Mimarisi](#çalışma-mimarisi)
@@ -88,7 +89,7 @@ npx skills add AtaCanYmc/tr-app-hukuk --agent claude-code cursor antigravity -y
 
 ### Yöntem 2: Tek Satırlık POSIX Kabuk Kurucusu
 
-Node.js kurulu olmadan, doğrudan terminalden `curl` ile çalıştırılabilir:
+macOS ve Linux ortamlarında, doğrudan terminalden `curl` ile çalıştırılabilir:
 
 ```bash
 # Otomatik tespit ile kurulu tüm ortamlara kurun
@@ -105,7 +106,26 @@ curl -fsSL https://raw.githubusercontent.com/AtaCanYmc/tr-app-hukuk/main/install
 
 ---
 
-### Yöntem 3: Doğrudan Kurulum (`npx github:`)
+### Yöntem 3: Windows PowerShell Kurucusu
+
+Windows PowerShell veya PowerShell Core üzerinde tek satırda çalıştırılabilir:
+
+```powershell
+# Otomatik tespit ile kurulu tüm ortamlara kurun
+irm https://raw.githubusercontent.com/AtaCanYmc/tr-app-hukuk/main/install.ps1 | iex
+
+# Ya da parametreli çalıştırma için indirip çalıştırın:
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Claude
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Cursor
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Gemini
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Copilot
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -Windsurf
+powershell -ExecutionPolicy Bypass -File .\install.ps1 -All
+```
+
+---
+
+### Yöntem 4: Doğrudan Kurulum (`npx github:`)
 
 NPM kayıt defterine gerek kalmadan doğrudan bu deponun dahili kurulum betiğini çalıştırın:
 
@@ -125,7 +145,7 @@ npx github:AtaCanYmc/tr-app-hukuk --target=all
 
 ---
 
-### Yöntem 4: Manuel Yapılandırma
+### Yöntem 5: Manuel Yapılandırma
 
 #### 1. Claude Code
 ```bash
@@ -247,6 +267,7 @@ tr-app-hukuk/
 ├── ROADMAP.md                       # Teknik geliştirme kilometre taşları
 ├── SECURITY.md                      # Güvenlik açığı bildirim politikası ve SLA
 ├── install.js                       # Sıfır bağımlılıklı taşınabilir kurulum CLI betiği
+├── install.ps1                      # Windows PowerShell kurulum betiği (irm | iex uyumlu)
 ├── install.sh                       # Taşınabilir POSIX kabuk kurucusu (curl | sh uyumlu)
 ├── package.json                     # NPM paket tanımı ve ikili komut eşlemeleri
 └── test.js                          # Dahili test paketi (çoklu hedef kurulum simülasyonu)
