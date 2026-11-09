@@ -6,6 +6,7 @@ import { execFileSync } from 'node:child_process';
 
 const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hukuk-test-'));
 const cliPath = path.resolve('./install.js');
+const shPath = path.resolve('./install.sh');
 
 try {
   // Test 1: Default installation (Claude Code)
@@ -25,7 +26,13 @@ try {
   assert.ok(fs.existsSync(geminiSkill), 'Target all must create .gemini skill');
   assert.ok(fs.existsSync(copilotSkill), 'Target all must create .github skill');
 
-  console.log('✓ install.js multi-target tests passed');
+  // Test 4: POSIX shell installer
+  const shTarget = path.join(tempDir, 'sh-skill');
+  execFileSync(shPath, [shTarget], { cwd: tempDir, encoding: 'utf8' });
+  assert.ok(fs.existsSync(path.join(shTarget, 'SKILL.md')), 'install.sh must install SKILL.md');
+  assert.ok(fs.existsSync(path.join(shTarget, 'references', 'ceza-limitleri-2026.md')), 'install.sh must install references');
+
+  console.log('✓ install.js and install.sh tests passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }
