@@ -1,0 +1,39 @@
+name: Özellik veya Mevzuat Önerisi (Feature Request)
+description: Yeni bir yasal denetim maddesi, CLI parametresi veya iyileştirme önerin
+title: "feat: "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Yeni bir öneri sunmadan önce mevcut yol haritasını ([ROADMAP.md](../../ROADMAP.md)) kontrol edin.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Çözülmek İstenen İhtiyaç veya Sorun
+      description: Karşılaşılan teknik veya hukuki kısıtı net biçimde açıklayın.
+      placeholder: Bu özellik şu durumda gereklidir...
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Önerilen Çözüm veya Davranış
+      description: Eklenmesi talep edilen yasal dayanak, ceza limiti veya CLI bayrağının detayları.
+      placeholder: İlgili kanun maddesi ve önerilen kontrol adımı...
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Değerlendirilen Alternatifler
+      description: Varsa değerlendirdiğiniz diğer geçici çözümler veya alternatif yaklaşımlar.
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Katılımcı Kontrol Listesi
+      options:
+        - label: Benzer bir konu daha önce açılmamış.
+          required: true
+        - label: Öneri yürürlükteki mevzuat ve anti-AI-slop yönetişim kurallarına uygundur.
+          required: true

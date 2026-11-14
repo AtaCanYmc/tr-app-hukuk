@@ -2,18 +2,27 @@
 
 ## Desteklenen Sürümler
 
-| Sürüm | Destekleniyor mu? |
-|---|---|
-| 1.x | Evet |
-| < 1.0 | Hayır |
+Aşağıdaki tabloda güvenlik güncellemeleri alan aktif sürümler listelenmektedir:
+
+| Sürüm | Destek Durumu |
+| :--- | :---: |
+| 1.x | Destekleniyor |
+| < 1.0 | Desteklenmiyor |
 
 ## Güvenlik Açığı Bildirimi
 
-Bu depoda veya npm paketinde bir güvenlik açığı bulduysanız lütfen herkese açık GitHub Issue açmak yerine aşağıdaki yollardan birini kullanın:
+Bu projede tespit ettiğiniz potansiyel güvenlik açıklarını lütfen herkese açık GitHub Issue açarak paylaşmayın. Bildirimlerinizi aşağıdaki kanallardan biri üzerinden özel olarak iletin:
 
-1. **GitHub Security Advisory:** [Yeni güvenlik bildirimi oluştur](https://github.com/AtaCanYmc/tr-app-hukuk/security/advisories/new)
-2. **E-posta:** Güvenlik bildirimlerini doğrudan repo yöneticisine iletebilirsiniz.
+1. **GitHub Private Security Advisory:** [Güvenlik Bildirimi Oluştur](https://github.com/AtaCanYmc/tr-app-hukuk/security/advisories/new)
+2. **E-posta İletişimi:** `atacanymc@gmail.com` adresine konu satırında `[SECURITY] tr-app-hukuk` başlığıyla iletebilirsiniz.
 
-### Yanıt Süreci
-- Bildirimler en geç **48 saat** içinde incelenir ve teyit edilir.
-- Doğrulanan açıklar için en geç **7 iş günü** içinde yama yayınlanır.
+### Bildirimde Bulunması Gerekenler
+
+- Açığın teknik özeti ve potansiyel etki alanı.
+- Açığı yerel ortamda tekrarlamak için gereken kesin adımlar veya minimum PoC (Proof of Concept) kodu.
+- Etkilenen işletim sistemi veya yapay zeka asistanı sürüm bilgileri.
+
+### Hizmet Düzeyi Sözleşmesi (SLA)
+
+- **İlk Yanıt:** Gönderilen bildirimler en geç **48 saat** içinde incelenir ve durum hakkında teyit mesajı iletilir.
+- **Yama Yayınlama:** Doğrulanan kritik güvenlik açıkları için en geç **7 iş günü** içinde düzeltme yaması hazırlanarak yeni sürüm etiketlenir.

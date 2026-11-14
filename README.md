@@ -5,7 +5,7 @@
 **Yapay zeka kodlama asistanları için Türkiye mevzuatı ve KVKK denetim yeteneği.**
 
 [![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-blue.svg)](LICENSE)
-[![CI](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg)](.github/workflows/ci.yml)
+[![CI](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg)](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml)
 [![Yetenek: AI Agent](https://img.shields.io/badge/Yetenek-AI%20Agent-purple.svg)](skills/tr-app-hukuk/SKILL.md)
 [![Durum: Kullanıma Hazır](https://img.shields.io/badge/Durum-Kullan%C4%B1ma%20Haz%C4%B1r-brightgreen.svg)](ROADMAP.md)
 [![Mevzuat: 2026](https://img.shields.io/badge/Mevzuat-2026%20G%C3%BCncel-orange.svg)](#denetim-kapsamı-ve-cezai-üst-sınırlar)
@@ -15,11 +15,11 @@
 
 ## Genel Bakış
 
-`tr-app-hukuk`, Türkiye'de yayında olan ya da yayına girecek mobil ve web uygulamalarının kaynak kodlarını Türk tüketici, ticaret, telif, internet yayıncılığı ve kişisel verilerin korunması mevzuatına göre denetleyen açık kaynaklı bir yapay zeka sistem yeteneğidir (AI agent skill).
+`tr-app-hukuk`, Türkiye'de yayında olan ya da yayına girecek mobil ve web uygulamalarının kaynak kodlarını Türk tüketici, ticaret, telif, internet yayıncılığı ve kişisel verilerin korunması mevzuatına göre denetleyen açık kaynaklı bir yapay zeka sistem yeteneğidir.
 
-Claude Code, Cursor, Google Antigravity, GitHub Copilot, Gemini CLI ve Windsurf ortamlarıyla tam uyumludur. Jenerik ve yüzeysel yapay zeka yanıtları yerine; projenin gerçek mimarisini tarar, dosya ve satır numaralarıyla kesin referanslar üretir ve 2026 yılı yasal ceza risklerini raporlar.
+Claude Code, Cursor, Google Antigravity, GitHub Copilot, Gemini CLI ve Windsurf ortamlarıyla tam uyumludur. Jenerik ve yüzeysel yapay zeka yanıtları yerine; projenin mimarisini tarar, dosya ve satır numaralarıyla kesin referanslar üretir ve 2026 yılı yasal ceza risklerini raporlar.
 
-NPM yayını veya harici paket yükleme zorunluluğu yoktur. Node.js standart kütüphanesini kullanır ve sıfır harici bağımlılıkla çalışır.
+Harici paket yükleme zorunluluğu yoktur. Node.js standart kütüphanesini kullanır ve sıfır harici bağımlılıkla çalışır.
 
 ---
 
@@ -50,7 +50,7 @@ NPM yayını veya harici paket yükleme zorunluluğu yoktur. Node.js standart k�
 - **Kesin Satır Referansları**: Tüm bulguları `dosya_yolu:satır_numarası` formatında raporlar.
 - **Salt Okunur Denetim Modu**: Kullanıcı açıkça onay verip talep etmediği sürece kaynak kod dosyalarında hiçbir değişiklik yapmaz.
 - **2026 Mevzuat Kalibrasyonu**: Cezai üst sınırlar, Hazine ve Maliye Bakanlığı'nın 2026 yılı için açıkladığı yüzde 25,49 yeniden değerleme oranına göre hesaplanmış güncel tutarlardır.
-- **İsteğe Bağlı Markdown Raporlama**: Tarama sonunda kullanıcıya sorar; onay verilirse projenin kök dizininde yapısal bir `hukuk-denetim-raporu.md` dosyası üretir.
+- **İsteğe Bağlı Markdown Raporlama**: Tarama sonunda kullanıcıya sorar. Onay verilirse projenin kök dizininde yapısal bir `hukuk-denetim-raporu.md` dosyası üretir.
 
 ---
 
@@ -89,7 +89,7 @@ npx skills add AtaCanYmc/tr-app-hukuk --agent claude-code cursor antigravity -y
 
 ### Yöntem 2: Tek Satırlık POSIX Kabuk Kurucusu
 
-macOS ve Linux ortamlarında, doğrudan terminalden `curl` ile çalıştırılabilir:
+macOS ve Linux ortamlarında doğrudan terminalden `curl` ile çalıştırılabilir:
 
 ```bash
 # Otomatik tespit ile kurulu tüm ortamlara kurun
@@ -163,7 +163,7 @@ cp -r /tmp/tr-app-hukuk/skills/tr-app-hukuk/* .cursor/skills/tr-app-hukuk/
 rm -rf /tmp/tr-app-hukuk
 ```
 
-Dilerseniz `.cursor/rules/tr-hukuk.mdc` adında bir kural dosyası oluşturup içeriğine `skills/tr-app-hukuk/SKILL.md` metnini ekleyerek her sohbette otomatik aktif tutabilirsiniz.
+İsteğe bağlı olarak `.cursor/rules/tr-hukuk.mdc` adında bir kural dosyası oluşturup içeriğine `skills/tr-app-hukuk/SKILL.md` metnini ekleyerek her sohbette aktif tutabilirsiniz.
 
 #### 3. GitHub Copilot
 ```bash
@@ -185,13 +185,13 @@ Yeteneği kurduktan sonra yapay zeka asistanınızın sohbet ekranına aşağıd
 
 > **Komut:** `"Projemi hukuki olarak tara"` veya `"Uygulamamı Türkiye yasalarına göre denetle"`
 
-Asistan projenin platformunu (iOS, Android, Web), harici servislerini (ödeme, e-posta, analitik, veritabanı) ve toplanan kullanıcı verilerini tespit eder. Altı başlık altında bulguları tablo halinde listeler.
+Asistan projenin platformunu, harici servislerini ve toplanan kullanıcı verilerini tespit eder. Altı başlık altında bulguları tablo halinde listeler.
 
 ### Senaryo 2: Yurt Dışı Veri Çıkışı ve KVKK Taraması
 
 > **Komut:** `"KVKK m.9 ve m.12 kapsamında yurt dışı veri çıkışlarımı ve yazı tipi CDN isteklerimi incele"`
 
-Harici Google Fonts, Sentry, Mixpanel, Firebase veya Datadog SDK çağrılarını inceler; kullanıcı IP adresi, telemetri veya form girdilerinin yurt dışı sunuculara aktarılıp aktarılmadığını tespit eder.
+Harici Google Fonts, Sentry, Mixpanel, Firebase veya Datadog SDK çağrılarını inceler. Kullanıcı IP adresi, telemetri veya form girdilerinin yurt dışı sunuculara aktarılıp aktarılmadığını tespit eder.
 
 ### Senaryo 3: Ödeme ve Abonelik Ekranı Denetimi
 
@@ -219,7 +219,7 @@ Aşağıdaki cezai üst sınırlar, 2026 yılı için belirlenen yüzde 25,49 ye
 | **3** | **5846 sayılı FSEK** | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | **365.000 TL** *(Adli para cezası veya hapis)* | m.71 |
 | **4** | **5651 sayılı Kanun** | Yer sağlayıcı künyesi, hukuka aykırı içerik şikayet kanalı ve trafik logları | **1.000.000 TL** *(Kanuni nominal tutar)* | m.5, m.6 |
 | **5** | **6698 sayılı KVKK** | Toplanan verilerin amacı, saklama süresi ve aydınlatma metninin ilk temastan önce sunulması | **1.709.200 TL** *(Aydınlatma yükümlülüğü)* | m.10, m.18/1-a |
-| **6** | **6698 sayılı KVKK** | Yurt dışına veri aktarımı (CDN, fonts, analitik) ve veri güvenliği ihlalleri | **17.092.242 TL** *(Kurul tavan uygulaması)* | m.9, m.12, m.18/1-b |
+| **6** | **6698 sayılı KVKK** | Yurt dışına veri aktarımı ve veri güvenliği ihlalleri | **17.092.242 TL** *(Kurul tavan uygulaması)* | m.9, m.12, m.18/1-b |
 
 Detaylı kanun metinleri ve bent incelemeleri için [`skills/tr-app-hukuk/references`](skills/tr-app-hukuk/references) dizinine başvurabilirsiniz.
 
@@ -246,31 +246,42 @@ flowchart LR
 ```text
 tr-app-hukuk/
 ├── .github/
-│   ├── dependabot.yml               # Haftalık otomatik bağımlılık ve eylem güncellemeleri
-│   └── workflows/
-│       ├── ci.yml                   # Sürekli entegrasyon (Node 18, 20, 22 test matrisi)
-│       └── release.yml              # Release Please ile otomatik sürüm ve changelog
+│   ├── ISSUE_TEMPLATE/
+│   │   ├── bug_report.yml               # Yapılandırılmış hata bildirim formu
+│   │   ├── config.yaml                  # Güvenlik ve tartışma yönlendirmeleri
+│   │   └── feature_request.yml          # Özellik ve mevzuat öneri formu
+│   ├── PULL_REQUEST_TEMPLATE/
+│   │   └── pull_request_template.md     # PR doğrulama ve checklist şablonu
+│   ├── workflows/
+│   │   ├── ci.yml                       # Sürekli entegrasyon (Node test, lint, link kontrolü)
+│   │   └── release.yml                  # Release Please ile otomatik sürümleme
+│   ├── CODEOWNERS                       # Kod sahipliği ve PR inceleme yönlendirmesi
+│   └── dependabot.yml                   # Haftalık bağımlılık ve GitHub Actions güncellemeleri
 ├── assets/
-│   └── logo.svg                     # Vektörel açık/koyu tema uyumlu logo
+│   └── logo.svg                         # Vektörel açık/koyu tema uyumlu logo
 ├── skills/
 │   └── tr-app-hukuk/
 │       ├── references/
 │       │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme cezai üst limitleri
 │       │   └── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
-│       ├── README.md                # Yeteneğe özel alt klasör kılavuzu
-│       └── SKILL.md                 # Asistanın yürüttüğü ana sistem talimatı
-├── CHANGELOG.md                     # Sürüm değişiklik kayıtları
-├── CODE_OF_CONDUCT.md               # Katılımcı davranış kuralları
-├── CONTRIBUTING.md                  # Katkı kılavuzu ve Conventional Commits standardı
-├── LICENSE                          # MIT Lisansı
-├── README.md                        # Ana depo dokümantasyonu
-├── ROADMAP.md                       # Teknik geliştirme kilometre taşları
-├── SECURITY.md                      # Güvenlik açığı bildirim politikası ve SLA
-├── install.js                       # Sıfır bağımlılıklı taşınabilir kurulum CLI betiği
-├── install.ps1                      # Windows PowerShell kurulum betiği (irm | iex uyumlu)
-├── install.sh                       # Taşınabilir POSIX kabuk kurucusu (curl | sh uyumlu)
-├── package.json                     # NPM paket tanımı ve ikili komut eşlemeleri
-└── test.js                          # Dahili test paketi (çoklu hedef kurulum simülasyonu)
+│       ├── README.md                    # Yetenek alt modül kılavuzu
+│       └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı
+├── .editorconfig                        # Çapraz editör biçimlendirme kuralları
+├── .gitattributes                       # Çapraz platform satır sonu ve arşiv yapılandırması
+├── .gitignore                           # Git izleme dışı dosya tanımları
+├── .markdownlint.json                   # Markdown biçimlendirme kuralları
+├── CHANGELOG.md                         # Sürüm değişiklik kayıtları
+├── CODE_OF_CONDUCT.md                   # Katılımcı davranış kuralları
+├── CONTRIBUTING.md                      # Katkı kılavuzu ve Conventional Commits standardı
+├── LICENSE                              # MIT Lisansı
+├── README.md                            # Ana depo dokümantasyonu
+├── ROADMAP.md                           # Teknik geliştirme kilometre taşları
+├── SECURITY.md                          # Güvenlik açığı bildirim politikası ve SLA
+├── install.js                           # Sıfır bağımlılıklı taşınabilir kurulum CLI betiği
+├── install.ps1                          # Windows PowerShell kurulum betiği (irm | iex uyumlu)
+├── install.sh                           # Taşınabilir POSIX kabuk kurucusu (curl | sh uyumlu)
+├── package.json                         # NPM paket tanımı ve ikili komut eşlemeleri
+└── test.js                              # Dahili test paketi (çoklu hedef kurulum simülasyonu)
 ```
 
 ---

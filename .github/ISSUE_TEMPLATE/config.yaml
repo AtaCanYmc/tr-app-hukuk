@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Güvenlik Açığı Bildirimi (Security Vulnerabilities)
+    url: https://github.com/AtaCanYmc/tr-app-hukuk/security/advisories/new
+    about: Lütfen güvenlik açıklarını SECURITY.md politikamıza uygun olarak özel bildirim kanalı üzerinden iletin.
+  - name: Soru ve Tartışmalar (Discussions)
+    url: https://github.com/AtaCanYmc/tr-app-hukuk/discussions
+    about: Mevzuat maddeleri ve kullanım senaryoları üzerine sorularınızı tartışmalarda paylaşın.

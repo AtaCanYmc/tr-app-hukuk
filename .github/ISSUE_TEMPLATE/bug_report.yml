@@ -1,0 +1,50 @@
+name: Hata Bildirimi (Bug Report)
+description: Karşılaştığınız tekrarlanabilir bir hatayı veya kurulum sorununu bildirin
+title: "fix: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Yeni bir bildirim açmadan önce benzer bir konunun daha önce bildirilmediğini kontrol edin.
+        Güvenlik açıkları için [SECURITY.md](../../SECURITY.md) belgesini inceleyin.
+  - type: textarea
+    id: summary
+    attributes:
+      label: Hata Açıklaması
+      description: Karşılaşılan hatayı açık ve teknik ifadelerle özetleyin.
+      placeholder: Ne olduğunu ve ne beklendiğini açıklayın.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Hatayı Tekrarlama Adımları
+      description: Hatayı yerel ortamda üretmek için gereken kesin adımlar.
+      placeholder: |
+        1. '...' komutunu çalıştırın.
+        2. '...' çıktısını inceleyin.
+        3. '...' hatasını gözlemleyin.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Beklenen Davranış
+      description: Normal şartlarda gerçekleşmesi beklenen sonuç.
+    validations:
+      required: true
+  - type: textarea
+    id: logs
+    attributes:
+      label: Terminal Çıktısı veya Hata Logları
+      description: Varsa ilgili terminal çıktılarını veya hata izlerini ekleyin.
+      render: shell
+  - type: input
+    id: environment
+    attributes:
+      label: Çalışma Ortamı
+      description: İşletim sistemi, Node.js sürümü, hedef yapay zeka asistanı.
+      placeholder: macOS 15.1, Node 20.10.0, Claude Code / Cursor
+    validations:
+      required: true
