@@ -148,6 +148,7 @@ npx github:AtaCanYmc/tr-app-hukuk --target=all
 ### Yöntem 5: Manuel Yapılandırma
 
 #### 1. Claude Code
+
 ```bash
 mkdir -p .claude/skills/tr-app-hukuk
 git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
@@ -156,6 +157,7 @@ rm -rf /tmp/tr-app-hukuk
 ```
 
 #### 2. Cursor
+
 ```bash
 mkdir -p .cursor/skills/tr-app-hukuk
 git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
@@ -166,6 +168,7 @@ rm -rf /tmp/tr-app-hukuk
 İsteğe bağlı olarak `.cursor/rules/tr-hukuk.mdc` adında bir kural dosyası oluşturup içeriğine `skills/tr-app-hukuk/SKILL.md` metnini ekleyerek her sohbette aktif tutabilirsiniz.
 
 #### 3. GitHub Copilot
+
 ```bash
 mkdir -p .github/skills/tr-app-hukuk
 git clone https://github.com/AtaCanYmc/tr-app-hukuk.git /tmp/tr-app-hukuk
@@ -213,7 +216,7 @@ Onay verdiğinizde rapor kök dizine yazılır. Ardından asistan düzeltmek ist
 Aşağıdaki cezai üst sınırlar, 2026 yılı için belirlenen yüzde 25,49 yeniden değerleme oranı esas alınarak hesaplanmıştır:
 
 | No | Yasal Dayanak | Denetim Kapsamı | 2026 Yasal Üst Sınırı | İlgili Madde |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | **1** | **6502 sayılı Kanun** | Ödeme ekranı, abonelik yenileme periyodu, cayma hakkı ve gizli yenileme şartları | **10.837.065 TL** *(Haksız ticari uygulama)*<br>**3.973 TL** *(İşlem başına)* | m.62, m.77/1-a, m.77/13 |
 | **2** | **6563 sayılı Kanun** | Ticari iletilerde gönderen kimliği, ret hakkı bağlantısı ve onaysız gönderimler | **42.930 TL** *(Ret linki yokluğu)*<br>**28.620 TL** *(Kimlik eksikliği)* | m.12 |
 | **3** | **5846 sayılı FSEK** | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | **365.000 TL** *(Adli para cezası veya hapis)* | m.71 |
@@ -288,16 +291,20 @@ tr-app-hukuk/
 
 ## Sıkça Sorulan Sorular
 
-#### Bu araç kaynak kodlarımı harici sunuculara veya telemetri sistemlerine gönderir mi?
+### Bu araç kaynak kodlarımı harici sunuculara veya telemetri sistemlerine gönderir mi?
+
 Hayır. `tr-app-hukuk` tamamen yerel dosyalardan oluşan statik bir yapay zeka yeteneğidir. Çalıştırma sırasında harici ağ istekleri atmaz, telemetri toplamaz ve kodlarınızı üçüncü şahıslara iletmez. İnceleme tamamen kendi yerel yapay zeka asistanınızın oturumu içinde gerçekleşir.
 
-#### NPM Registry üzerinde yayınlanmadan GitHub üzerinden nasıl kuruluyor?
+### NPM Registry üzerinde yayınlanmadan GitHub üzerinden nasıl kuruluyor?
+
 `npx skills add AtaCanYmc/tr-app-hukuk` komutu, Vercel Labs `skills` motoru üzerinden doğrudan GitHub deposunu çözümler. Ayrıca `npx github:AtaCanYmc/tr-app-hukuk` komutu, `npx`'in yerel GitHub protokol desteğini kullanarak deponun `install.js` betiğini çalıştırır.
 
-#### 2026 yılı ceza tutarları neye göre belirlendi?
+### 2026 yılı ceza tutarları neye göre belirlendi?
+
 Hazine ve Maliye Bakanlığı'nın Vergi Usul Kanunu Genel Tebliği ile 2026 yılı için ilan ettiği yüzde 25,49 yeniden değerleme oranı, kanunlardaki mevcut maktu ceza tutarlarına uygulanarak hesaplanmıştır.
 
-#### Yetenek birden fazla yapay zeka aracında aynı anda kullanılabilir mi?
+### Yetenek birden fazla yapay zeka aracında aynı anda kullanılabilir mi?
+
 Evet. `npx github:AtaCanYmc/tr-app-hukuk --target=all` komutunu çalıştırarak projenizde Claude Code, Cursor, Gemini, Copilot ve Windsurf için gerekli tüm yetenek dizinlerini tek hamlede oluşturabilirsiniz.
 
 ---

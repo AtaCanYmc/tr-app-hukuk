@@ -7,17 +7,20 @@ Bu belge, projeye kod veya dokümantasyon katkısı sağlamak isteyen geliştiri
 ## Geliştirme Süreci
 
 1. Depoyu GitHub üzerinden çatallayın (fork) ve yerel çalışma alanınıza klonlayın:
+
    ```bash
    git clone https://github.com/AtaCanYmc/tr-app-hukuk.git
    cd tr-app-hukuk
    ```
 
 2. Yerel test paketini çalıştırarak temel işlevlerin çalıştığını doğrulayın:
+
    ```bash
    npm test
    ```
 
 3. Yeni bir özellik veya yasal madde düzeltmesi için amaca uygun bir çalışma dalı oluşturun:
+
    ```bash
    git checkout -b feat/yeni-mevzuat-maddesi
    ```
@@ -84,9 +87,11 @@ print("Tüm doküman bağlantıları geçerli.")
 ## Pull Request Süreci
 
 1. Çalışma dalınızı kendi çatallanmış (fork) deponuza gönderin:
+
    ```bash
    git push origin feat/yeni-mevzuat-maddesi
    ```
+
 2. GitHub üzerinde bir Pull Request açın.
 3. PR başlığının ve commit mesajlarının Conventional Commits formatında olduğunu teyit edin.
 4. PR açıklamasında değişikliğin hangi kanun maddesi, ceza tutarı veya yetenek dosyasıyla ilişkili olduğunu belirtin.
