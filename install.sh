@@ -23,6 +23,7 @@ install_to() {
     # Remote curl execution fallback
     curl -fsSL "$BASE_URL/SKILL.md" -o "$dest/SKILL.md"
     curl -fsSL "$BASE_URL/references/ceza-limitleri-2026.md" -o "$dest/references/ceza-limitleri-2026.md"
+    curl -fsSL "$BASE_URL/references/emsal-kararlar.md" -o "$dest/references/emsal-kararlar.md"
     curl -fsSL "$BASE_URL/references/kanun-maddeleri.md" -o "$dest/references/kanun-maddeleri.md"
   fi
 }

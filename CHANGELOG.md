@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0] - 2026-11-18
+
+### Added
+
+* Yargıtay emsal kararları ve içtihat arama şablonu (`references/emsal-kararlar.md`).
+* `yargitay-karar-cli` ve `yargitay-karar-mcp` entegrasyon kuralları (`SKILL.md`).
+* Kurulum scriptleri (`install.sh`, `install.ps1`) ve test paketine emsal karar referansı desteği.
+
 ## 1.0.0 (2026-11-09)
 
 ### Features

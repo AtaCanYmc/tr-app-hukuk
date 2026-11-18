@@ -1,4 +1,4 @@
-# tr-app-hukuk PowerShell Skill Installer
+﻿# tr-app-hukuk PowerShell Skill Installer
 [CmdletBinding()]
 param (
     [string]$Target = "",
@@ -37,6 +37,7 @@ function Install-Skill {
     } else {
         Invoke-WebRequest -Uri "$BaseUrl/SKILL.md" -OutFile (Join-Path $Dest "SKILL.md")
         Invoke-WebRequest -Uri "$BaseUrl/references/ceza-limitleri-2026.md" -OutFile (Join-Path $refDir "ceza-limitleri-2026.md")
+        Invoke-WebRequest -Uri "$BaseUrl/references/emsal-kararlar.md" -OutFile (Join-Path $refDir "emsal-kararlar.md")
         Invoke-WebRequest -Uri "$BaseUrl/references/kanun-maddeleri.md" -OutFile (Join-Path $refDir "kanun-maddeleri.md")
     }
 }

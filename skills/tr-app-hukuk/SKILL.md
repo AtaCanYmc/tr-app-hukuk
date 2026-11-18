@@ -1,7 +1,7 @@
 ---
 name: tr-app-hukuk
 description: "Türkiye mevzuatı ve KVKK uyumluluğu için AI kod denetim yeteneği. Mobil uygulama ve web projelerini tüketici hukuku, ticari ileti, telif, yer sağlayıcı ve KVKK kapsamında tarar."
-version: 1.0.0
+version: 1.1.0
 ---
 
 # Hukuki Tarama Yeteneği (tr-app-hukuk)
@@ -16,6 +16,9 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 3. **Kesin referanslar:** Her bulguyu dosya yolu ve satır numarasıyla belirt (`dosya:satır`). Emin olmadığın maddeleri tahmin etme, "Doğrulanamadı" olarak işaretle.
 4. **Yok vs. Bulunamadı ayrımı:** Bir şey kodda yoksa "Yok", projede aranıp bulunamadıysa "Bulunamadı" olarak belirt.
 5. **Durum sınıflandırması:** Her başlık için net durum ver: `Var`, `Yok`, `Kısmen` veya `Doğrulanamadı`.
+6. **Emsal İçtihat ve Yargıtay Kararları:** Yasal riski somutlaştırmak ve raporun hukuki gücünü artırmak için Yargıtay emsal kararlarından yararlan:
+   - Sistemde `yargitay-karar-cli` veya `yargitay-karar-mcp` (Model Context Protocol) tanımlıysa, kritik bulgular için ilgili anahtar kelimelerle arama yap (`yargitay-karar-cli search --keyword "..." --limit 2`).
+   - CLI veya MCP aktif değilse, `references/emsal-kararlar.md` dosyasında yer alan içtihatları referans göster.
 
 ---
 
@@ -28,18 +31,20 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 - Cayma hakkı ve "Ödemeyi onaylıyorum / Satın al" adımı belirgin mi?
 - Deneme sürümü varsa, bitiminde ücret kesileceği deneme başlamadan önce açıkça belirtilmiş mi?
 - Yenileme koşulları küçük puntoya veya gizli akordeonlara saklanmış mı?
-*(Ayrıntılı ceza ve bentler: `references/ceza-limitleri-2026.md` ve `references/kanun-maddeleri.md`)*
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/kanun-maddeleri.md`, `references/emsal-kararlar.md`)*
 
 ### 2. Abonelik ve Tanıtım E-postaları (6563 sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun)
 
 - Ticari e-postalarda gönderen unvanı, MERSİS/iletişim bilgisi var mı?
 - Abonelikten çıkış (ret hakkı) bağlantısı var mı ve çalışıyor mu?
 - Kullanıcıdan önceden onay (opt-in) almadan kampanya veya bülten gönderen tetikleyiciler var mı?
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
 
 ### 3. Kullanıcı Telifli İçerik Yüklüyor (5846 sayılı Fikir ve Sanat Eserleri Kanunu)
 
 - Kullanıcıların görsel, ses, video veya metin yükleyebildiği özellikler var mı?
 - Hak sahiplerinden gelen telif bildirimlerini karşılayacak "Uyar-Kaldır" mekanizması (iletişim, form, panel, aksiyon) mevcut mu?
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
 
 ### 4. Kullanıcı İçeriği ve Yer Sağlayıcı Yükümlülükleri (5651 sayılı Kanun)
 
@@ -47,12 +52,14 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 - Hukuka aykırı içeriği şikayet etme / bildirme kanalı ve kaldırma süreci mevcut mu?
 - Uygulamada/sitede Yer Sağlayıcı tanıtıcı ve iletişim bilgileri sunuluyor mu?
 - Trafik bilgisi (erişim logları, IP, zaman damgası) saklama mekanizması düşünülmüş mü?
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
 
 ### 5. Aydınlatma Metni (6698 sayılı KVKK m.10)
 
 - Toplanan kişisel veriler (ad, e-posta, konum, cihaz/reklam ID, ödeme verisi vb.) tespit edildi mi?
 - Bu verilerin toplanma amacı, saklama süresi ve hakları içeren Aydınlatma Metni ilk veriden önce sunuluyor mu?
 - Kodda toplanan fiili veri ile metinde beyan edilen veriler birbiriyle örtüşüyor mu?
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
 
 ### 6. Yurt Dışına Veri Çıkışı ve Harici Kaynaklar (6698 sayılı KVKK m.9 ve m.12)
 
@@ -60,6 +67,7 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 - Hangi veriler gidiyor (IP, kullanıcı kimliği, telemetri, form girdileri)?
 - Hassas form alanlarını (parola, kredi kartı) yakalayan session replay / logger araçları var mı?
 - Yurt dışı aktarım mekanizması (açık rıza, standart sözleşme veya bağlayıcı şirket kuralları) ve aydınlatma yapılmış mı?
+*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
 
 ---
 
@@ -78,8 +86,8 @@ Her başlık için aşağıdaki tablo formatını kullan:
 
 Raporun sonunda:
 
-1. Risk sırasına göre **en kritik 5 bulguyu** ve ilgili 2026 ceza üst sınırlarını listele (`references/ceza-limitleri-2026.md` üzerinden al).
+1. Risk sırasına göre **en kritik 5 bulguyu**, ilgili 2026 ceza üst sınırlarını (`references/ceza-limitleri-2026.md`) ve varsa ilgili **Yargıtay emsal içtihadını** (`references/emsal-kararlar.md` veya dinamik arama) listele.
 2. **Kullanıcıya rapor dosyası sorusu sor:**
    *"Bu denetim sonuçlarını projenize `hukuk-denetim-raporu.md` dosyası olarak kaydetmek ister misiniz?"*
-   - Kullanıcı evet derse veya onaylarsa: Raporu, bulgu tablolarını ve yasal riskleri içeren `hukuk-denetim-raporu.md` dosyasını projenin kök dizininde oluştur.
+   - Kullanıcı evet derse veya onaylarsa: Raporu, bulgu tablolarını, emsal kararları ve yasal riskleri içeren `hukuk-denetim-raporu.md` dosyasını projenin kök dizininde oluştur.
 3. Düzeltme kodu yazmadan önce sor: *"Hangi maddeler için düzeltme kodu yazmamı istersiniz?"*

@@ -31,6 +31,7 @@ try {
   execFileSync(shPath, [shTarget], { cwd: tempDir, encoding: 'utf8' });
   assert.ok(fs.existsSync(path.join(shTarget, 'SKILL.md')), 'install.sh must install SKILL.md');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'ceza-limitleri-2026.md')), 'install.sh must install references');
+  assert.ok(fs.existsSync(path.join(shTarget, 'references', 'emsal-kararlar.md')), 'install.sh must install emsal-kararlar');
 
   console.log('✓ install.js and install.sh tests passed');
 } finally {

@@ -266,6 +266,7 @@ tr-app-hukuk/
 │   └── tr-app-hukuk/
 │       ├── references/
 │       │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme cezai üst limitleri
+│       │   ├── emsal-kararlar.md        # Yargıtay emsal kararları ve içtihat referansları
 │       │   └── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
 │       ├── README.md                    # Yetenek alt modül kılavuzu
 │       └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı
