@@ -15,7 +15,7 @@
 
 - [x] Cursor, Gemini, Copilot ve Windsurf için çoklu hedef bayrakları (`--target=cursor`, `--target=gemini`, vb.).
 - [x] Doğrudan terminal çıktısı ve simülasyon için `--print` ve `--dry-run` parametreleri.
-- [ ] TypeScript/Python tabanlı ödeme ve e-posta kütüphaneleri için regex desen kütüphanesi.
+- [x] TypeScript/Python tabanlı ödeme ve e-posta kütüphaneleri için regex desen kütüphanesi.
 
 ## [2.0.0] - Gelecek Hedefler
 

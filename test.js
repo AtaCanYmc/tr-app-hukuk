@@ -32,6 +32,7 @@ try {
   assert.ok(fs.existsSync(path.join(shTarget, 'SKILL.md')), 'install.sh must install SKILL.md');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'ceza-limitleri-2026.md')), 'install.sh must install references');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'emsal-kararlar.md')), 'install.sh must install emsal-kararlar');
+  assert.ok(fs.existsSync(path.join(shTarget, 'references', 'regex-desenleri.md')), 'install.sh must install regex-desenleri');
 
   // Test 5: Security - Prototype pollution / invalid target rejection in install.js
   assert.throws(

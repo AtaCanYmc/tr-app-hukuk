@@ -55,6 +55,7 @@ function Install-Skill {
         Invoke-WebRequest -Uri "$BaseUrl/references/ceza-limitleri-2026.md" -OutFile (Join-Path $refDir "ceza-limitleri-2026.md")
         Invoke-WebRequest -Uri "$BaseUrl/references/emsal-kararlar.md" -OutFile (Join-Path $refDir "emsal-kararlar.md")
         Invoke-WebRequest -Uri "$BaseUrl/references/kanun-maddeleri.md" -OutFile (Join-Path $refDir "kanun-maddeleri.md")
+        Invoke-WebRequest -Uri "$BaseUrl/references/regex-desenleri.md" -OutFile (Join-Path $refDir "regex-desenleri.md")
     }
 }
 

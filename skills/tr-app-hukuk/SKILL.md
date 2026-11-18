@@ -22,6 +22,7 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
      *"Canlı Yargıtay emsal kararlarını sorgulayabilmemiz için `yargitay-karar-scraper` CLI aracı bulunamadı. Kurmamı ister misiniz? (`brew install atacanymc/tap/yargitay-karar-scraper` veya `pip install yargitay-karar-scraper`)"*
      - Kullanıcı onay verirse: Aracı kur ve kritik bulgular için arama yap (`yargitay-karar-cli search --keyword "..." --limit 2`).
      - Kullanıcı istemezse ya da onay vermezse: Doğrudan `references/emsal-kararlar.md` dosyasında yer alan yerleşik içtihatları referans göster.
+7. **Regex Destekli Statik Tarama:** Ödeme ve e-posta akışlarını incelerken TypeScript/JavaScript ve Python desenleri için `references/regex-desenleri.md` dosyasındaki kalıplardan yararlan. Bu desenleri kullanarak projede ilgili servis tanımlamalarını, tetikleyicileri ve şüpheli akışları kesin `dosya:satır` referansıyla rapora geçir.
 
 ---
 
@@ -34,14 +35,14 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 - Cayma hakkı ve "Ödemeyi onaylıyorum / Satın al" adımı belirgin mi?
 - Deneme sürümü varsa, bitiminde ücret kesileceği deneme başlamadan önce açıkça belirtilmiş mi?
 - Yenileme koşulları küçük puntoya veya gizli akordeonlara saklanmış mı?
-*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/kanun-maddeleri.md`, `references/emsal-kararlar.md`)*
+*(Ayrıntılı ceza, emsaller ve regex desenleri: `references/ceza-limitleri-2026.md`, `references/kanun-maddeleri.md`, `references/emsal-kararlar.md`, `references/regex-desenleri.md`)*
 
 ### 2. Abonelik ve Tanıtım E-postaları (6563 sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun)
 
 - Ticari e-postalarda gönderen unvanı, MERSİS/iletişim bilgisi var mı?
 - Abonelikten çıkış (ret hakkı) bağlantısı var mı ve çalışıyor mu?
 - Kullanıcıdan önceden onay (opt-in) almadan kampanya veya bülten gönderen tetikleyiciler var mı?
-*(Ayrıntılı ceza ve emsaller: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`)*
+*(Ayrıntılı ceza, emsaller ve regex desenleri: `references/ceza-limitleri-2026.md`, `references/emsal-kararlar.md`, `references/regex-desenleri.md`)*
 
 ### 3. Kullanıcı Telifli İçerik Yüklüyor (5846 sayılı Fikir ve Sanat Eserleri Kanunu)
 
