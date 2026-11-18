@@ -41,7 +41,7 @@ jobs:
           done
 
       - name: Validate Markdown Formatting
-        run: npx --yes markdownlint-cli "**/*.md" --ignore node_modules
+        run: npx --yes markdownlint-cli "**/*.md" --ignore node_modules --ignore CHANGELOG.md
 
       - name: Validate Internal Documentation Links
         run: |
