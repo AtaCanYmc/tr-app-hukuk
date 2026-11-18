@@ -11,14 +11,18 @@ install_to() {
   dest="$1"
   name="$2"
   printf "==> [%s] için kuruluyor: %s\n" "$name" "$dest"
-  mkdir -p "$dest/references"
+  mkdir -p -- "$dest/references"
 
   if [ -d "$LOCAL_SRC" ]; then
-    cp "$LOCAL_SRC/SKILL.md" "$dest/SKILL.md"
+    cp -- "$LOCAL_SRC/SKILL.md" "$dest/SKILL.md"
     if [ -f "$LOCAL_SRC/README.md" ]; then
-      cp "$LOCAL_SRC/README.md" "$dest/README.md"
+      cp -- "$LOCAL_SRC/README.md" "$dest/README.md"
     fi
-    cp "$LOCAL_SRC/references/"*.md "$dest/references/"
+    for ref_file in "$LOCAL_SRC/references/"*.md; do
+      if [ -f "$ref_file" ]; then
+        cp -- "$ref_file" "$dest/references/"
+      fi
+    done
   else
     # Remote curl execution fallback
     curl -fsSL "$BASE_URL/SKILL.md" -o "$dest/SKILL.md"
@@ -53,6 +57,19 @@ if [ $# -gt 0 ]; then
       install_to "$HOME/.cursor/skills/tr-app-hukuk" "Cursor"
       install_to "$HOME/.codex/skills/tr-app-hukuk" "GitHub Copilot / Codex"
       install_to "$HOME/.windsurf/skills/tr-app-hukuk" "Windsurf"
+      ;;
+    --target=*)
+      custom_target="${1#--target=}"
+      if [ -z "$custom_target" ]; then
+        echo "Hata: --target değeri boş olamaz." >&2
+        exit 1
+      fi
+      install_to "$custom_target" "Özel Dizin"
+      ;;
+    -*)
+      echo "Hata: Bilinmeyen seçenek '$1'" >&2
+      echo "Kullanım: $0 [--antigravity|--claude|--cursor|--copilot|--windsurf|--all|--target=<dizin>|<hedef_dizin>]" >&2
+      exit 1
       ;;
     *)
       install_to "$1" "Özel Dizin"

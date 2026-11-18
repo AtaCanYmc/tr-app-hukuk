@@ -33,7 +33,23 @@ try {
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'ceza-limitleri-2026.md')), 'install.sh must install references');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'emsal-kararlar.md')), 'install.sh must install emsal-kararlar');
 
-  console.log('✓ install.js and install.sh tests passed');
+  // Test 5: Security - Prototype pollution / invalid target rejection in install.js
+  assert.throws(
+    () => execFileSync('node', [cliPath, '--target=constructor'], { cwd: tempDir, encoding: 'utf8' }),
+    'install.js must reject prototype property constructor'
+  );
+  assert.throws(
+    () => execFileSync('node', [cliPath, '--__proto__'], { cwd: tempDir, encoding: 'utf8' }),
+    'install.js must reject prototype property __proto__'
+  );
+
+  // Test 6: Security - Option / argument injection rejection in install.sh
+  assert.throws(
+    () => execFileSync(shPath, ['--invalid-flag'], { cwd: tempDir, encoding: 'utf8' }),
+    'install.sh must reject unknown flags safely'
+  );
+
+  console.log('✓ install.js and install.sh security & integration tests passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });
 }
