@@ -54,7 +54,7 @@ Yapay zeka asistanı sohbet penceresinde aşağıdaki ifadelerden herhangi biri 
 
 1. **Bağlam Analizi:** Projenin hedef platformu (iOS, Android, Web), harici entegrasyonları (ödeme, analitik, e-posta, CDN) ve toplanan kullanıcı veri kategorileri tespit edilir.
 2. **Statik Kod Taraması:** Salt okunur modda kodlar incelenir; her bulgu kesin dosya ve satır referansıyla (`dosya_yolu:satır_no`) eşleştirilir.
-3. **Mevzuat Eşleme:** Altı ana yasal başlık altında Durum, Bulgu, Risk Seviyesi ve Çözüm Önerisi tablosu oluşturulur.
+3. **Mevzuat ve Emsal Karar Eşleme:** Altı ana yasal başlık altında Durum, Bulgu, Risk Seviyesi ve Çözüm Önerisi tablosu oluşturulur. Cihazda `yargitay-karar-cli` mevcutsa canlı Yargıtay kararları taranır; yoksa kullanıcıya kurulum teklif edilir veya yerleşik `references/emsal-kararlar.md` içtihatları kullanılır.
 4. **Opsiyonel Rapor Üretimi:** Kullanıcı onay verirse kök dizinde yapısal bir `hukuk-denetim-raporu.md` dosyası üretilir.
 5. **Düzeltme Adımı:** Kullanıcının seçtiği maddeler için hedefe yönelik en az değişiklikle (minimal diff) düzeltme kodları sunulur.
 

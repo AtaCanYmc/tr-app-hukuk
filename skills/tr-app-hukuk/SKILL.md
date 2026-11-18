@@ -17,8 +17,11 @@ Kullanıcı senden "Hukuki tarama yap", "Uygulamamı Türkiye yasalarına göre 
 4. **Yok vs. Bulunamadı ayrımı:** Bir şey kodda yoksa "Yok", projede aranıp bulunamadıysa "Bulunamadı" olarak belirt.
 5. **Durum sınıflandırması:** Her başlık için net durum ver: `Var`, `Yok`, `Kısmen` veya `Doğrulanamadı`.
 6. **Emsal İçtihat ve Yargıtay Kararları:** Yasal riski somutlaştırmak ve raporun hukuki gücünü artırmak için Yargıtay emsal kararlarından yararlan:
-   - Sistemde `yargitay-karar-cli` veya `yargitay-karar-mcp` (Model Context Protocol) tanımlıysa, kritik bulgular için ilgili anahtar kelimelerle arama yap (`yargitay-karar-cli search --keyword "..." --limit 2`).
-   - CLI veya MCP aktif değilse, `references/emsal-kararlar.md` dosyasında yer alan içtihatları referans göster.
+   - **CLI Kontrolü:** Ortamda `yargitay-karar-cli` veya `yargitay-karar-mcp` (Model Context Protocol) bulunup bulunmadığını kontrol et (`which yargitay-karar-cli`).
+   - **Kurulum Teklifi:** Eğer CLI aracı veya MCP ortamda kurulu değilse, kullanıcıya canlı arama yapabilmek için kurulumu teklif et:
+     *"Canlı Yargıtay emsal kararlarını sorgulayabilmemiz için `yargitay-karar-scraper` CLI aracı bulunamadı. Kurmamı ister misiniz? (`brew install atacanymc/tap/yargitay-karar-scraper` veya `pip install yargitay-karar-scraper`)"*
+     - Kullanıcı onay verirse: Aracı kur ve kritik bulgular için arama yap (`yargitay-karar-cli search --keyword "..." --limit 2`).
+     - Kullanıcı istemezse ya da onay vermezse: Doğrudan `references/emsal-kararlar.md` dosyasında yer alan yerleşik içtihatları referans göster.
 
 ---
 
