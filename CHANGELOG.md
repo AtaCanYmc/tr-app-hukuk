@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.1](https://github.com/AtaCanYmc/tr-app-hukuk/compare/v1.1.0...v1.1.1) (2026-11-18)
+
+
+### Bug Fixes
+
+* **security:** prevent prototype pollution and argument injection in installers ([7d09d44](https://github.com/AtaCanYmc/tr-app-hukuk/commit/7d09d441f90a77466d81306f9661f80d510d2b5e))
+
 ## [1.1.0](https://github.com/AtaCanYmc/tr-app-hukuk/compare/v1.0.0...v1.1.0) (2026-11-18)
 
 ### Features
