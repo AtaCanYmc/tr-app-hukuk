@@ -33,6 +33,7 @@ try {
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'ceza-limitleri-2026.md')), 'install.sh must install references');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'emsal-kararlar.md')), 'install.sh must install emsal-kararlar');
   assert.ok(fs.existsSync(path.join(shTarget, 'references', 'regex-desenleri.md')), 'install.sh must install regex-desenleri');
+  assert.ok(fs.existsSync(path.join(shTarget, 'references', 'rapor-semasi.json')), 'install.sh must install rapor-semasi.json');
 
   // Test 5: Security - Prototype pollution / invalid target rejection in install.js
   assert.throws(
@@ -70,6 +71,31 @@ try {
     assert.ok(shDryRunOutput.includes('[dry-run]'), 'install.sh --dry-run must indicate simulation');
   } finally {
     fs.rmSync(dryRunDir, { recursive: true, force: true });
+  }
+
+  // Test 9: CLI --json audit output
+  const jsonScanDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hukuk-json-'));
+  try {
+    // Riski içeren sahte bir TypeScript dosyası oluştur
+    const dummyFile = path.join(jsonScanDir, 'checkout.ts');
+    fs.writeFileSync(dummyFile, 'export const config = { auto_renew: true };\nmailClient.sendMail();\n');
+
+    const jsonRaw = execFileSync('node', [cliPath, '--json'], { cwd: jsonScanDir, encoding: 'utf8' });
+    const parsed = JSON.parse(jsonRaw);
+    assert.ok(parsed.version, 'JSON report must have version');
+    assert.ok(parsed.timestamp, 'JSON report must have timestamp');
+    assert.strictEqual(parsed.scanned_files, 1, 'JSON report must report 1 scanned file');
+    assert.strictEqual(parsed.summary.total_findings, 2, 'JSON report must detect 2 findings');
+    assert.strictEqual(parsed.summary.high_risk, 2, 'JSON report must classify both as high risk');
+    assert.strictEqual(parsed.findings[0].category, 'payment_subscription');
+    assert.strictEqual(parsed.findings[1].category, 'commercial_message');
+
+    // Shell script wrapper test
+    const shJsonRaw = execFileSync(shPath, ['--json'], { cwd: jsonScanDir, encoding: 'utf8' });
+    const shParsed = JSON.parse(shJsonRaw);
+    assert.strictEqual(shParsed.summary.total_findings, 2, 'install.sh --json must produce matching results');
+  } finally {
+    fs.rmSync(jsonScanDir, { recursive: true, force: true });
   }
 
   console.log('✓ install.js and install.sh security & integration tests passed');

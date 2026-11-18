@@ -17,7 +17,8 @@
 - [x] Doğrudan terminal çıktısı ve simülasyon için `--print` ve `--dry-run` parametreleri.
 - [x] TypeScript/Python tabanlı ödeme ve e-posta kütüphaneleri için regex desen kütüphanesi.
 
-## [2.0.0] - Gelecek Hedefler
+## [2.0.0] - Mevcut Sürüm
 
-- [ ] CI pipeline üzerinde doğrudan çalıştırılabilen headless denetim modu (`npx github:AtaCanYmc/tr-app-hukuk --check`).
-- [ ] JSON formatında makine tarafından okunabilir denetim çıktısı (`--json`).
+- [x] CI pipeline üzerinde doğrudan çalıştırılabilen headless denetim modu (`npx github:AtaCanYmc/tr-app-hukuk --check`).
+- [x] JSON formatında makine tarafından okunabilir denetim çıktısı (`--json`).
+- [x] JSON Schema standartlarında denetim raporu şeması (`references/rapor-semasi.json`).

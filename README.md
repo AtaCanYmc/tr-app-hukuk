@@ -148,6 +148,12 @@ npx github:AtaCanYmc/tr-app-hukuk --dry-run --target=all
 
 # Yetenek talimatını doğrudan terminale veya panoya yazdırın
 npx github:AtaCanYmc/tr-app-hukuk --print
+
+# Headless statik denetim modu (CI pipeline veya yerel kontrol)
+npx github:AtaCanYmc/tr-app-hukuk --check
+
+# Makine tarafından okunabilir JSON formatında denetim raporu
+npx github:AtaCanYmc/tr-app-hukuk --json
 ```
 
 ---
@@ -275,6 +281,7 @@ tr-app-hukuk/
 │       │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme cezai üst limitleri
 │       │   ├── emsal-kararlar.md        # Yargıtay emsal kararları ve içtihat referansları
 │       │   ├── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
+│       │   ├── rapor-semasi.json        # JSON formatında denetim raporu şeması
 │       │   └── regex-desenleri.md       # Ödeme ve e-posta regex desen kütüphanesi
 │       ├── README.md                    # Yetenek alt modül kılavuzu
 │       └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı

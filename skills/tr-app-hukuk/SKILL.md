@@ -95,3 +95,39 @@ Raporun sonunda:
    *"Bu denetim sonuçlarını projenize `hukuk-denetim-raporu.md` dosyası olarak kaydetmek ister misiniz?"*
    - Kullanıcı evet derse veya onaylarsa: Raporu, bulgu tablolarını, emsal kararları ve yasal riskleri içeren `hukuk-denetim-raporu.md` dosyasını projenin kök dizininde oluştur.
 3. Düzeltme kodu yazmadan önce sor: *"Hangi maddeler için düzeltme kodu yazmamı istersiniz?"*
+
+---
+
+### Makine Okunabilir JSON Formatı (`--json`)
+
+Kullanıcı denetim sonucunu JSON formatında istediğinde veya komutta `--json` belirttiğinde, standart markdown tablosu yerine `references/rapor-semasi.json` şemasına tam uyumlu tek bir JSON bloğu üret:
+
+```json
+{
+  "version": "1.1.1",
+  "timestamp": "ISO_8601_TIMESTAMP",
+  "target_directory": "PROJE_KOK_DIZINI",
+  "scanned_files": 10,
+  "summary": {
+    "total_findings": 1,
+    "high_risk": 1,
+    "medium_risk": 0,
+    "low_risk": 0
+  },
+  "findings": [
+    {
+      "id": "TR-LAW-001-1",
+      "category": "payment_subscription",
+      "title": "Abonelik ve Otomatik Yenileme Şartı",
+      "law": "6502 sayılı Kanun m. 48 & m. 62",
+      "file": "src/services/billing.ts",
+      "line": 34,
+      "matched_pattern": "auto_renew: true",
+      "risk": "Yüksek",
+      "penalty_limit_2026": "10.837.065 TL (m.62 & m.77/13)",
+      "precedent_decision": "Yargıtay 3. H.D. E. 2021/4812, K. 2021/9340",
+      "recommendation": "Otomatik yenileme ve cayma süresi açıkça sunulmalıdır."
+    }
+  ]
+}
+```

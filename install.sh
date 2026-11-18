@@ -18,6 +18,11 @@ for arg in "$@"; do
     fi
     exit 0
   fi
+  if [ "$arg" = "--json" ] || [ "$arg" = "--check" ]; then
+    if command -v node >/dev/null 2>&1 && [ -f "$REPO_DIR/install.js" ]; then
+      exec node "$REPO_DIR/install.js" "$@"
+    fi
+  fi
 done
 
 install_to() {
@@ -35,7 +40,7 @@ install_to() {
     if [ -f "$LOCAL_SRC/README.md" ]; then
       cp -- "$LOCAL_SRC/README.md" "$dest/README.md"
     fi
-    for ref_file in "$LOCAL_SRC/references/"*.md; do
+    for ref_file in "$LOCAL_SRC/references/"*.*; do
       if [ -f "$ref_file" ]; then
         cp -- "$ref_file" "$dest/references/"
       fi
@@ -47,6 +52,7 @@ install_to() {
     curl -fsSL "$BASE_URL/references/emsal-kararlar.md" -o "$dest/references/emsal-kararlar.md"
     curl -fsSL "$BASE_URL/references/kanun-maddeleri.md" -o "$dest/references/kanun-maddeleri.md"
     curl -fsSL "$BASE_URL/references/regex-desenleri.md" -o "$dest/references/regex-desenleri.md"
+    curl -fsSL "$BASE_URL/references/rapor-semasi.json" -o "$dest/references/rapor-semasi.json"
   fi
 }
 

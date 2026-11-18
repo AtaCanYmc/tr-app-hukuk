@@ -32,6 +32,7 @@ skills/tr-app-hukuk/
 │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme oranıyla hesaplanan cezai üst sınırlar
 │   ├── emsal-kararlar.md        # Yargıtay içtihat ve emsal karar referansları / arama şablonu
 │   ├── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
+│   ├── rapor-semasi.json        # JSON formatında denetim raporu şeması (JSON Schema)
 │   └── regex-desenleri.md       # TypeScript ve Python ödeme / e-posta regex desen kütüphanesi
 ├── README.md                    # Bu doküman
 └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı
@@ -67,4 +68,5 @@ Yapay zeka asistanı sohbet penceresinde aşağıdaki ifadelerden herhangi biri 
 - **`references/ceza-limitleri-2026.md`**: 2026 yılı yeniden değerleme oranı (%25,49) ile güncellenen idari para cezası limitleri.
 - **`references/emsal-kararlar.md`**: Tüketici, telif, ticari ileti, yer sağlayıcı ve veri suçları için Yargıtay emsal kararları ve arama şablonu.
 - **`references/kanun-maddeleri.md`**: 6502, 6563, 5846, 5651 ve 6698 sayılı kanunların ilgili maddeleri.
+- **`references/rapor-semasi.json`**: Makine tarafından okunabilir JSON denetim raporu şeması.
 - **`references/regex-desenleri.md`**: TypeScript ve Python ödeme sağlayıcıları, abonelik akışları ve e-posta kütüphaneleri için regex kalıpları.

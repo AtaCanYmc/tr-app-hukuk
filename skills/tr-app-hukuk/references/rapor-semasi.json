@@ -1,0 +1,94 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TrAppHukukAuditReport",
+  "description": "tr-app-hukuk statik ve yapay zeka kod denetim raporu şeması",
+  "type": "object",
+  "required": [
+    "version",
+    "timestamp",
+    "target_directory",
+    "scanned_files",
+    "summary",
+    "findings"
+  ],
+  "properties": {
+    "version": {
+      "type": "string",
+      "description": "Denetim aracı sürümü"
+    },
+    "timestamp": {
+      "type": "string",
+      "format": "date-time",
+      "description": "Denetimin gerçekleştirildiği ISO 8601 zaman damgası"
+    },
+    "target_directory": {
+      "type": "string",
+      "description": "Taranan proje kök dizini"
+    },
+    "scanned_files": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "Taranan kaynak kod dosyası sayısı"
+    },
+    "summary": {
+      "type": "object",
+      "required": ["total_findings", "high_risk", "medium_risk", "low_risk"],
+      "properties": {
+        "total_findings": { "type": "integer", "minimum": 0 },
+        "high_risk": { "type": "integer", "minimum": 0 },
+        "medium_risk": { "type": "integer", "minimum": 0 },
+        "low_risk": { "type": "integer", "minimum": 0 }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "category",
+          "title",
+          "law",
+          "file",
+          "line",
+          "risk",
+          "recommendation"
+        ],
+        "properties": {
+          "id": { "type": "string" },
+          "category": {
+            "type": "string",
+            "enum": [
+              "payment_subscription",
+              "commercial_message",
+              "copyright_fsek",
+              "hosting_provider_5651",
+              "kvkk_disclosure",
+              "kvkk_cross_border"
+            ]
+          },
+          "title": { "type": "string" },
+          "law": { "type": "string" },
+          "file": { "type": "string" },
+          "line": { "type": "integer", "minimum": 1 },
+          "matched_pattern": { "type": "string" },
+          "risk": {
+            "type": "string",
+            "enum": ["Yüksek", "Orta", "Düşük"]
+          },
+          "penalty_limit_2026": { "type": "string" },
+          "precedent_decision": { "type": "string" },
+          "recommendation": { "type": "string" }
+        }
+      }
+    },
+    "references": {
+      "type": "object",
+      "properties": {
+        "penalties": { "type": "string" },
+        "precedents": { "type": "string" },
+        "patterns": { "type": "string" }
+      }
+    }
+  }
+}
