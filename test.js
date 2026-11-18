@@ -49,6 +49,28 @@ try {
     'install.sh must reject unknown flags safely'
   );
 
+  // Test 7: CLI --print parameter
+  const nodePrintOutput = execFileSync('node', [cliPath, '--print'], { encoding: 'utf8' });
+  assert.ok(nodePrintOutput.includes('name: tr-app-hukuk'), 'install.js --print must output SKILL.md frontmatter');
+  assert.ok(nodePrintOutput.includes('Hukuki Tarama Yeteneği'), 'install.js --print must output skill header');
+
+  const shPrintOutput = execFileSync(shPath, ['--print'], { encoding: 'utf8' });
+  assert.ok(shPrintOutput.includes('name: tr-app-hukuk'), 'install.sh --print must output SKILL.md frontmatter');
+
+  // Test 8: CLI --dry-run parameter (should not write files)
+  const dryRunDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hukuk-dryrun-'));
+  try {
+    const dryRunOutput = execFileSync('node', [cliPath, '--dry-run', '--target=claude'], { cwd: dryRunDir, encoding: 'utf8' });
+    assert.ok(dryRunOutput.includes('[dry-run]'), 'install.js --dry-run must indicate simulation');
+    const dryRunTarget = path.join(dryRunDir, '.claude', 'skills', 'tr-app-hukuk');
+    assert.ok(!fs.existsSync(dryRunTarget), 'install.js --dry-run must not create target directory');
+
+    const shDryRunOutput = execFileSync(shPath, ['--dry-run', '--claude'], { cwd: dryRunDir, encoding: 'utf8' });
+    assert.ok(shDryRunOutput.includes('[dry-run]'), 'install.sh --dry-run must indicate simulation');
+  } finally {
+    fs.rmSync(dryRunDir, { recursive: true, force: true });
+  }
+
   console.log('✓ install.js and install.sh security & integration tests passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });

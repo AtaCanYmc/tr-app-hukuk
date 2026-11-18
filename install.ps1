@@ -9,7 +9,9 @@ param (
     [switch]$Copilot,
     [switch]$Codex,
     [switch]$Windsurf,
-    [switch]$All
+    [switch]$All,
+    [switch]$Print,
+    [switch]$DryRun
 )
 
 $ErrorActionPreference = "Stop"
@@ -17,11 +19,25 @@ $BaseUrl = "https://raw.githubusercontent.com/AtaCanYmc/tr-app-hukuk/main/skills
 $ScriptDir = if ($PSScriptRoot) { $PSScriptRoot } else { (Get-Location).Path }
 $LocalSrc = Join-Path $ScriptDir "skills/tr-app-hukuk"
 
+if ($Print) {
+    $skillFile = Join-Path $LocalSrc "SKILL.md"
+    if (Test-Path $skillFile) {
+        Get-Content $skillFile -Raw | Write-Output
+    } else {
+        (Invoke-WebRequest -Uri "$BaseUrl/SKILL.md").Content | Write-Output
+    }
+    exit 0
+}
+
 function Install-Skill {
     param (
         [string]$Dest,
         [string]$Name
     )
+    if ($DryRun) {
+        Write-Host "==> [dry-run] [$Name] için simüle ediliyor: $Dest" -ForegroundColor Cyan
+        return
+    }
     Write-Host "==> [$Name] için kuruluyor: $Dest" -ForegroundColor Cyan
     $refDir = Join-Path $Dest "references"
     if (-not (Test-Path $refDir)) {

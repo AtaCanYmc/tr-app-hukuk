@@ -6,10 +6,27 @@ set -eu
 BASE_URL="https://raw.githubusercontent.com/AtaCanYmc/tr-app-hukuk/main/skills/tr-app-hukuk"
 REPO_DIR="$(cd "$(dirname "$0" 2>/dev/null || echo ".")" && pwd 2>/dev/null || echo ".")"
 LOCAL_SRC="$REPO_DIR/skills/tr-app-hukuk"
+DRY_RUN=0
+
+# Handle --print immediately without side effects
+for arg in "$@"; do
+  if [ "$arg" = "--print" ]; then
+    if [ -f "$LOCAL_SRC/SKILL.md" ]; then
+      cat "$LOCAL_SRC/SKILL.md"
+    else
+      curl -fsSL "$BASE_URL/SKILL.md"
+    fi
+    exit 0
+  fi
+done
 
 install_to() {
   dest="$1"
   name="$2"
+  if [ "$DRY_RUN" -eq 1 ]; then
+    printf "==> [dry-run] [%s] için simüle ediliyor: %s\n" "$name" "$dest"
+    return 0
+  fi
   printf "==> [%s] için kuruluyor: %s\n" "$name" "$dest"
   mkdir -p -- "$dest/references"
 
@@ -34,8 +51,22 @@ install_to() {
 
 echo "==> tr-app-hukuk: Yapay Zeka Hukuki Denetim Yeteneği Kurucusu"
 
-if [ $# -gt 0 ]; then
-  case "$1" in
+target_arg=""
+for arg in "$@"; do
+  case "$arg" in
+    --dry-run)
+      DRY_RUN=1
+      ;;
+    *)
+      if [ -z "$target_arg" ]; then
+        target_arg="$arg"
+      fi
+      ;;
+  esac
+done
+
+if [ -n "$target_arg" ]; then
+  case "$target_arg" in
     --antigravity|--gemini)
       install_to "$HOME/.gemini/antigravity/skills/tr-app-hukuk" "Google Antigravity / Gemini"
       ;;
@@ -59,7 +90,7 @@ if [ $# -gt 0 ]; then
       install_to "$HOME/.windsurf/skills/tr-app-hukuk" "Windsurf"
       ;;
     --target=*)
-      custom_target="${1#--target=}"
+      custom_target="${target_arg#--target=}"
       if [ -z "$custom_target" ]; then
         echo "Hata: --target değeri boş olamaz." >&2
         exit 1
@@ -67,12 +98,12 @@ if [ $# -gt 0 ]; then
       install_to "$custom_target" "Özel Dizin"
       ;;
     -*)
-      echo "Hata: Bilinmeyen seçenek '$1'" >&2
-      echo "Kullanım: $0 [--antigravity|--claude|--cursor|--copilot|--windsurf|--all|--target=<dizin>|<hedef_dizin>]" >&2
+      echo "Hata: Bilinmeyen seçenek '$target_arg'" >&2
+      echo "Kullanım: $0 [--antigravity|--claude|--cursor|--copilot|--windsurf|--all|--target=<dizin>|--dry-run|--print|<hedef_dizin>]" >&2
       exit 1
       ;;
     *)
-      install_to "$1" "Özel Dizin"
+      install_to "$target_arg" "Özel Dizin"
       ;;
   esac
 else

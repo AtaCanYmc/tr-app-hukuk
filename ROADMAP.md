@@ -11,10 +11,10 @@
 - [x] İsteğe bağlı `hukuk-denetim-raporu.md` dosya üretim akışı.
 - [x] GitHub Actions CI ve Release Please entegrasyonu.
 
-## [1.1.0] - Planlanan
+## [1.1.0] - Mevcut Sürüm
 
 - [x] Cursor, Gemini, Copilot ve Windsurf için çoklu hedef bayrakları (`--target=cursor`, `--target=gemini`, vb.).
-- [ ] Doğrudan terminal çıktısı için `--print` ve `--dry-run` parametreleri.
+- [x] Doğrudan terminal çıktısı ve simülasyon için `--print` ve `--dry-run` parametreleri.
 - [ ] TypeScript/Python tabanlı ödeme ve e-posta kütüphaneleri için regex desen kütüphanesi.
 
 ## [2.0.0] - Gelecek Hedefler

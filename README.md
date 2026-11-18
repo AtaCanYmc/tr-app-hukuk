@@ -141,6 +141,13 @@ npx github:AtaCanYmc/tr-app-hukuk --target=windsurf
 
 # Tüm desteklenen ajanlar için aynı anda kurun
 npx github:AtaCanYmc/tr-app-hukuk --target=all
+
+# Simülasyon modu (dosya yazmadan kurulumu test edin)
+npx github:AtaCanYmc/tr-app-hukuk --dry-run
+npx github:AtaCanYmc/tr-app-hukuk --dry-run --target=all
+
+# Yetenek talimatını doğrudan terminale veya panoya yazdırın
+npx github:AtaCanYmc/tr-app-hukuk --print
 ```
 
 ---
