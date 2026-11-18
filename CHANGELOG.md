@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.2.0](https://github.com/AtaCanYmc/tr-app-hukuk/compare/v1.1.1...v1.2.0) (2026-11-18)
+
+
+### Features
+
+* **cli:** add --print and --dry-run flags across installers ([169a095](https://github.com/AtaCanYmc/tr-app-hukuk/commit/169a095071a173995119baebc232f3f06b7fe18d))
+* **cli:** add machine-readable JSON output (--json) and headless audit mode (--check) ([7d4cf44](https://github.com/AtaCanYmc/tr-app-hukuk/commit/7d4cf442edb00128361a0aa43afdfb6b48bf568a))
+* **patterns:** add regex pattern library for payment and email libraries ([579f0f3](https://github.com/AtaCanYmc/tr-app-hukuk/commit/579f0f378e0b85f6dfd490cfef6d761a1c6584f4))
+
 ## [1.1.1](https://github.com/AtaCanYmc/tr-app-hukuk/compare/v1.1.0...v1.1.1) (2026-11-18)
 
 ### Bug Fixes
