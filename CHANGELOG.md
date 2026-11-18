@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.1.0](https://github.com/AtaCanYmc/tr-app-hukuk/compare/v1.0.0...v1.1.0) (2026-11-18)
+
+
+### Features
+
+* add Yargitay precedent decisions support and integration guide ([476b960](https://github.com/AtaCanYmc/tr-app-hukuk/commit/476b9600eeb7cfba65bd6e165a496d72f91eb0a6))
+* prompt user to install yargitay-karar-cli if missing ([fc2a66e](https://github.com/AtaCanYmc/tr-app-hukuk/commit/fc2a66ef852b919c738975a2f7fd83c087f69c3e))
+
 ## [1.1.0] - 2026-11-18
 
 ### Added
