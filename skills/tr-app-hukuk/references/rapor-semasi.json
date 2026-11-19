@@ -60,11 +60,17 @@
             "type": "string",
             "enum": [
               "payment_subscription",
+              "distance_contract_preinfo",
               "commercial_message",
+              "commercial_message_iys",
               "copyright_fsek",
               "hosting_provider_5651",
               "kvkk_disclosure",
-              "kvkk_cross_border"
+              "kvkk_disclosure_consent",
+              "kvkk_cross_border",
+              "kvkk_cross_border_cdn",
+              "kvkk_security_breach",
+              "database_rls_leak"
             ]
           },
           "title": { "type": "string" },

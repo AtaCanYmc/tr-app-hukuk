@@ -1,12 +1,12 @@
-# Ödeme ve E-posta Regex Desen Kütüphanesi
+# Hukuki Kod Denetimi Regex Desen Kütüphanesi
 
-Bu belge, `tr-app-hukuk` denetimlerinde TypeScript/JavaScript ve Python kod tabanlarındaki ödeme, abonelik ve ticari ileti (e-posta) entegrasyonlarını, tetikleyicilerini ve şüpheli kalıpları kesin satır referanslarıyla (`dosya:satır`) tespit etmek için kullanılan regex desenlerini içerir.
+Bu belge, `tr-app-hukuk` denetimlerinde TypeScript/JavaScript, Python ve SQL kod tabanlarındaki ödeme, sözleşme, ticari ileti (e-posta & SMS), İYS, KVKK formları, veritabanı/Supabase RLS ve harici yurt dışı kaynakları kesin satır referanslarıyla (`dosya:satır`) tespit etmek için kullanılan regex desenlerini içerir.
 
 ---
 
-## 1. Ödeme ve Abonelik Kütüphaneleri (6502 sayılı Tüketici Kanunu)
+## 1. Ödeme, Abonelik ve Mesafeli Sözleşmeler (6502 sayılı Kanun)
 
-Tüketiciyi yanıltan otomatik yenilemeler, gizlenmiş abonelik bedelleri ve onaysız kart saklama pratiklerini tespit etmek için kullanılır.
+Tüketiciyi yanıltan otomatik yenilemeler, gizlenmiş abonelik bedelleri, onaysız kart saklama ve **Ön Bilgilendirme Formu / Mesafeli Satış Sözleşmesi onaysız tahsilatları** tespit etmek için kullanılır.
 
 ### 1.1. TypeScript / JavaScript Ödeme Sağlayıcıları
 
@@ -49,147 +49,158 @@ Tüketiciyi yanıltan otomatik yenilemeler, gizlenmiş abonelik bedelleri ve ona
 (?:setup_future_usage|save_card|saveCard|store_card|rememberCard)\s*[:=]\s*(?:true|['"]off_session['"]|['"]on_session['"])
 ```
 
----
+### 1.2. Ön Bilgilendirme Formu (ÖBF) ve Mesafeli Satış Sözleşmesi (MSS) Onay Desenleri
 
-### 1.2. Python Ödeme Sağlayıcıları
-
-#### İçe Aktarma ve İstemci Tanımlamaları
+Ödeme butonuna basılmadan veya checkout oturumu başlatılmadan önce sözleşmelerin onaylandığını doğrulayan yapılar:
 
 ```regex
-# iyzico
-(?:import\s+iyzipay|from\s+iyzipay\s+import|iyzipay\.HttpClient\()
+# Ön Bilgilendirme ve Mesafeli Sözleşme Kontrolleri
+(?:pre_information_form|on_bilgilendirme|onBilgilendirmeFormu|distance_sales_agreement|mesafeli_satis|mesafeliSatisSozlesmesi)
 
-# Stripe & dj-stripe
-(?:import\s+stripe|from\s+stripe\s+import|from\s+djstripe|stripe\.api_key)
+# Sözleşme Onay State ve Checkbox Kalıpları
+(?:isTermsAccepted|isAgreementsChecked|hasAcceptedDistanceContract|acceptContracts|sozlesmeOnay)\s*[:=]\s*(?:true|false|boolean)
 
-# PayTR & Diğer Sağlayıcılar
-(?:import\s+paytr|from\s+paytr|paytr\.Payment|django_payments)
-
-# Paddle & LemonSqueezy
-(?:import\s+paddle|from\s+paddle\s+import|import\s+lemonsqueezy)
-```
-
-#### Abonelik ve Checkout Çağrıları
-
-```regex
-# Checkout ve Abonelik
-(?:stripe\.checkout\.Session\.create|stripe\.Subscription\.create|iyzipay\.Subscription\(\)|iyzipay\.CheckoutForm\(\))
-
-# Abonelik Plan ve Fiyatlandırma
-(?:interval\s*=\s*['"](?:month|year)['"]|recurring\s*=\s*\{|billing_cycle\s*=)
-```
-
-#### Şüpheli Yenileme ve Saklama Kalıpları
-
-```regex
-# Otomatik Yenileme ve Deneme Süresi
-(?:auto_renew|is_recurring|automatic_tax)\s*=\s*True
-
-# Kart Saklama
-(?:save_payment_method|save_card|setup_future_usage)\s*=\s*(?:True|['"]off_session['"])
+# Tehlikeli: Sözleşme Onay Kontrolü Olmadan Doğrudan Ödeme Çağrısı
+(?:onClick|onSubmit)\s*=\s*\{\s*(?:handleCheckout|startPayment|processPayment)\s*\}
 ```
 
 ---
 
-## 2. Ticari İleti ve E-posta Kütüphaneleri (6563 sayılı ETK)
+## 2. Ticari İletiler, E-posta, SMS ve İYS (6563 sayılı ETK & İYS Yönetmeliği)
 
-Onaysız pazarlama gönderimleri, ticari bültenler ve ret hakkı (`unsubscribe`) eksikliklerini tespit etmek için kullanılır.
+Onaysız pazarlama gönderimleri, ticari bültenler, SMS bildirimleri ve İYS (`İleti Yönetim Sistemi`) onay kontrolü eksikliklerini tespit etmek için kullanılır.
 
-### 2.1. TypeScript / JavaScript E-posta Sağlayıcıları
-
-#### İçe Aktarma ve Servis Tanımlamaları
+### 2.1. E-posta Sağlayıcıları ve Gönderim Çağrıları
 
 ```regex
-# Nodemailer
-(?:import\s+.*?\s+from\s+['"]nodemailer['"]|require\(['"]nodemailer['"]\)|nodemailer\.createTransport)
+# E-posta Sağlayıcı Tanımları (TS/JS & Python)
+(?:from\s+['"](?:nodemailer|resend|@sendgrid\/mail|postmark|mailgun\.js|@aws-sdk\/client-ses)['"]|from\s+django\.core\.mail|from\s+fastapi_mail)
 
-# Resend
-(?:import\s+.*?\s+from\s+['"]resend['"]|require\(['"]resend['"]\)|new\s+Resend\()
+# E-posta Gönderim Çağrıları
+(?:\.sendMail\(|resend\.emails\.send\(|sgMail\.send\(|client\.sendEmail\(|transporter\.send\(|send_mail\(|send_mass_mail\()
 
-# SendGrid
-(?:import\s+.*?\s+from\s+['"]@sendgrid/mail['"]|require\(['"]@sendgrid/mail['"]\)|sgMail\.setApiKey)
-
-# Postmark & AWS SES & Mailgun
-(?:from\s+['"]postmark['"]|from\s+['"]mailgun\.js['"]|from\s+['"]@aws-sdk/client-ses['"])
-```
-
-#### E-posta Gönderim Fonksiyonları
-
-```regex
-# Gönderim Çağrıları
-(?:\.sendMail\(|resend\.emails\.send\(|sgMail\.send\(|client\.sendEmail\(|transporter\.send\()
-```
-
-#### Pazarlama ve Toplu Gönderim Kalıpları
-
-```regex
 # Kampanya ve Bülten Şablonları
 (?:subject|template|category|tags)\s*[:=]\s*.*?(?:bülten|kampanya|newsletter|promotion|marketing|duyuru|indirim)
-
-# Alıcı Listeleri ve Segmentler
-(?:broadcast|bulkEmail|sendNewsletter|audience|subscriberList)
 ```
 
-#### Zorunlu Yasal Öğeler (Doğrulama Desenleri)
+### 2.2. SMS Sağlayıcıları ve Gönderim Çağrıları
 
 ```regex
-# Ret Hakkı / Unsubscribe Bağlantısı (Bulunması Zorunlu)
-(?:unsubscribe|opt-out|ret-hakki|abonelikten[-_]cik|cikis-linki|list-unsubscribe)
+# SMS Sağlayıcı Tanımları (Netgsm, Twilio, MutluCell, İletimerkezi, Vatansms)
+(?:from\s+['"](?:netgsm|twilio|mutlucell|iletimerkezi|vatansms)['"]|require\(['"](?:netgsm|twilio)['"]\)|new\s+Twilio\()
 
-# Ticari Tanıtıcı Bilgiler (MERSİS / VKN / Adres)
-(?:mersis|ticaret\s*sicil|vergi\s*dairesi|vkn|iletisim\s*adresi)
+# SMS Gönderim Çağrıları
+(?:\.messages\.create\(|netgsm\.sendSms\(|sendSMS\(|send_sms\(|mutlucell\.send\()
+```
+
+### 2.3. İYS (İleti Yönetim Sistemi) ve Onay Kontrol Desenleri
+
+Gönderimden önce alıcının İYS sisteminde onaylı olup olmadığını denetleyen desenler:
+
+```regex
+# İYS Kontrol Fonksiyon ve Değişkenleri (Mevcut olması gerekenler)
+(?:iys|iys_code|iysStatus|checkIysConsent|iysOnay|queryIys|validateIysConsent|isCommercialConsentGranted)
+
+# Ret ve Unsubscribe Doğrulama Kalıpları
+(?:unsubscribe|opt-out|ret-hakki|abonelikten[-_]cik|list-unsubscribe|RET\s+[A-Z0-9]+)
 ```
 
 ---
 
-### 2.2. Python E-posta Sağlayıcıları
+## 3. Kayıt, İletişim, Bülten Formları ve KVKK Aydınlatma / Rıza Ayrımı (KVKK m.10 & m.5)
 
-#### İçe Aktarma ve Servis Tanımlamaları
-
-```regex
-# Standart Kütüphane (smtplib / email)
-(?:import\s+smtplib|from\s+smtplib\s+import|from\s+email\.mime)
-
-# Django Core Mail
-(?:from\s+django\.core\.mail\s+import\s+(?:send_mail|send_mass_mail|EmailMessage|EmailMultiAlternatives))
-
-# FastAPI Mail & Flask Mail
-(?:from\s+fastapi_mail|from\s+flask_mail|FastMail\()
-
-# 3. Parti SDK (SendGrid / AWS SES)
-(?:from\s+sendgrid\s+import|boto3\.client\(['"]ses['"]\)|from\s+resend\s+import)
-```
-
-#### E-posta Gönderim Fonksiyonları
+Form bileşenlerinde aydınlatma linkinin varlığı ve açık rıza onayının aydınlatma metninden ayrı tutulup tutulmadığını tespit eder.
 
 ```regex
-# Gönderim Çağrıları
-(?:server\.sendmail\(|send_mail\(|send_mass_mail\(|mail\.send\(|sg\.client\.mail\.send)
-```
+# Form Tanımları (Kayıt, İletişim, Bülten)
+(?:<form|useForm|handleSubmit|registerForm|signupForm|contactForm|newsletterForm|newsletter_subscription)
 
-#### Pazarlama ve Bülten Kalıpları
+# KVKK Aydınlatma Metni Bağlantısı (Bulunması Zorunlu)
+(?:href\s*=\s*['"]\/(?:kvkk|aydinlatma|aydinlatma-metni|privacy-policy|gizlilik-politikasi)['"]|AydinlatmaMetniModal|KvkkModal)
 
-```regex
-# Konu ve Şablon Tanımları
-(?:subject|template_name)\s*=\s*.*?(?:kampanya|bülten|newsletter|fırsat|indirim|marketing)
+# Hatalı / Tehlikeli: Aydınlatma ile Açık Rızayı Tek Kutuda Birleştiren Kalıplar
+(?:Aydınlatma\s+metnini\s+okudum.*(?:kabul|onay|açık\s+rıza)|kvkkAndConsent|termsAndPrivacyConsent)
+
+# Hatalı: Açık Rıza Kutusunun Varsayılan Olarak İşaretli (Pre-ticked) Gelmesi
+(?:defaultChecked\s*=\s*\{?true\}?|checked\s*=\s*\{?true\}?)
 ```
 
 ---
 
-## 3. Pratik Tarama Komutları (CLI Örnekleri)
+## 4. Veritabanı & Supabase RLS ve Gizli Anahtar Sızıntıları (KVKK m.12)
+
+Supabase veya veritabanı katmanında RLS (`Row Level Security`) durumunu ve istemciye sızan `service_role` gibi yetkili anahtarları tespit eder.
+
+```regex
+# Supabase İstemci Başlatma
+(?:createClient\s*\(\s*process\.env\.|createBrowserClient|createServerClient)
+
+# Tehlikeli: service_role Anahtarının İstemciye Açılması (Next.js / Vite / Client Bundle)
+(?:NEXT_PUBLIC_.*SERVICE_ROLE|VITE_.*SERVICE_ROLE|REACT_APP_.*SERVICE_ROLE|PUBLIC_.*SERVICE_ROLE)
+
+# Tehlikeli: Hardcoded Supabase Service Role Key veya Secret Key
+(?:service_role|supabase_admin_key)\s*[:=]\s*['"]ey[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+\.[A-Za-z0-9-_]+['"]
+
+# SQL / Migration: RLS Etkinleştirme (Mevcut olması gereken)
+(?:alter\s+table\s+.*?enable\s+row\s+level\s+security|create\s+policy\s+)
+```
+
+---
+
+## 5. 72 Saat Veri İhlali Bildirimi, Güvenlik Loglama ve Alerting (KVKK m.12/5)
+
+Veri güvenliği ihlallerini Kurul'a 72 saat içinde bildirebilmek için gerekli denetim izi (audit log) ve gerçek zamanlı uyarı sistemlerini tarar.
+
+```regex
+# Güvenlik ve Denetim İzi Logları (Audit Logging)
+(?:auditLog|securityLog|logSecurityEvent|accessLog|authAudit|logBreachAttempt)
+
+# Anlık Hata ve Güvenlik Alarmları (Alerting / Webhook)
+(?:sentry\.captureException|datadog\.increment|pagerduty|opsgenie|alertWebhook|securityAlertChannel)
+
+# Güvenlik İletişim Adımı / Bildirim Dosyası
+(?:security@|SECURITY\.md|security_contact|reportSecurityIssue)
+```
+
+---
+
+## 6. Yurt Dışı Sunucular, CDN ve Google Fonts Tespiti (KVKK m.9)
+
+Son kullanıcı IP adresini veya verisini kullanıcının açık rızası olmaksızın yurt dışına aktaran kaynakları tespit eder.
+
+```regex
+# Google Fonts Harici İstekleri (Self-host yapılması gerekenler)
+(?:fonts\.googleapis\.com|fonts\.gstatic\.com|@import\s+url\(['"]https:\/\/fonts\.googleapis)
+
+# Harici CDN İstekleri
+(?:cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com|code\.jquery\.com)
+
+# Önerilen Yerel Font Çözümleri (Self-host Uyumluluk Kalıpları)
+(?:next\/font\/(?:google|local)|@fontsource\/|@nuxtjs\/google-fonts)
+```
+
+---
+
+## 7. Pratik CLI Tarama Komutları
 
 Asistan denetim sırasında hedef kod tabanında aşağıdaki komut kalıplarını çalıştırabilir:
 
 ```bash
-# Projede ödeme kütüphanelerini tara:
-grep -rnE "(iyzipay|stripe|lemonsqueezy|paytr|paddle)" --include="*.ts" --include="*.js" --include="*.py" .
+# 1. Supabase service_role ve istemci anahtarlarını tara:
+grep -rnE "(SERVICE_ROLE|service_role|supabase_admin)" --include="*.ts" --include="*.tsx" --include="*.js" --include="*.env*" .
 
-# Gizli otomatik yenileme ve kart saklama kalıplarını ara:
-grep -rnE "(auto_renew|autoRenew|recurringPayment|save_card|setup_future_usage)" --include="*.ts" --include="*.js" --include="*.py" .
+# 2. Google Fonts ve harici CDN referanslarını ara:
+grep -rnE "(fonts\.googleapis\.com|fonts\.gstatic\.com|cdnjs\.cloudflare\.com|cdn\.jsdelivr\.net|unpkg\.com)" .
 
-# E-posta gönderim fonksiyonlarını tara:
-grep -rnE "(sendMail|emails\.send|sgMail\.send|send_mail)" --include="*.ts" --include="*.js" --include="*.py" .
+# 3. Form bileşenlerinde KVKK linki ve açık rıza kontrollerini tara:
+grep -rnEi "(kvkk|aydinlatma|acik-riza|onay|newsletter|contact)" --include="*.tsx" --include="*.jsx" --include="*.vue" --include="*.html" .
 
-# E-posta şablonlarında ret hakkı (unsubscribe) varlığını denetle:
-grep -rnEi "(unsubscribe|opt-out|ret-hakki|abonelikten)" --include="*.ts" --include="*.js" --include="*.py" --include="*.html" .
+# 4. SMS sağlayıcıları ve İYS kontrollerini tara:
+grep -rnE "(netgsm|twilio|mutlucell|iletimerkezi|vatansms|iys|checkIys)" --include="*.ts" --include="*.js" --include="*.py" .
+
+# 5. Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi kontrollerini tara:
+grep -rnEi "(pre_information|on_bilgilendirme|distance_sales|mesafeli_satis)" --include="*.ts" --include="*.tsx" --include="*.js" .
+
+# 6. Veritabanı tablolarında RLS durumunu kontrol et (SQL/Migration):
+grep -rnEi "(enable\s+row\s+level\s+security|create\s+policy)" --include="*.sql" .
 ```

@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const sourceDir = path.join(__dirname, 'skills', 'tr-app-hukuk');
 const pkgPath = path.join(__dirname, 'package.json');
-const pkg = fs.existsSync(pkgPath) ? JSON.parse(fs.readFileSync(pkgPath, 'utf8')) : { version: '1.1.1' };
+const pkg = fs.existsSync(pkgPath) ? JSON.parse(fs.readFileSync(pkgPath, 'utf8')) : { version: '1.2.0' }; // x-release-please-version
 
 const TARGETS = Object.freeze({
   claude: path.join(process.cwd(), '.claude', 'skills', 'tr-app-hukuk'),
@@ -113,6 +113,50 @@ if (isJson || isCheck) {
       penalty_limit_2026: '17.092.242 TL (KVKK m.9 & m.12)',
       precedent_decision: 'Yargıtay 12. C.D. E. 2021/6105, K. 2022/4510',
       recommendation: 'Yurt dışı sunucularına veri aktaran telemetri araçları için KVKK m.9 şartları ve aydınlatma sağlanmalıdır.'
+    },
+    {
+      id: 'TR-LAW-005',
+      category: 'database_rls_leak',
+      title: 'İstemciye Sızan Supabase service_role veya Gizli Anahtar',
+      law: '6698 sayılı KVKK m. 12 (Veri Güvenliği)',
+      regex: /(?:NEXT_PUBLIC_.*SERVICE_ROLE|VITE_.*SERVICE_ROLE|REACT_APP_.*SERVICE_ROLE|service_role\s*[:=]\s*['"]ey[A-Za-z0-9-_]+)/i,
+      risk: 'Yüksek',
+      penalty_limit_2026: '17.092.242 TL (KVKK m.12)',
+      precedent_decision: 'KVKK Kurulu Veri Güvenliği İlke Kararı',
+      recommendation: 'service_role anahtarı yalnızca yetkili sunucu tarafında tutulmalı; istemci tarafına (NEXT_PUBLIC_/VITE_) asla sızdırılmamalıdır.'
+    },
+    {
+      id: 'TR-LAW-006',
+      category: 'commercial_message_iys',
+      title: 'Ticari SMS Gönderimi ve İYS Onay Denetimi',
+      law: '6563 sayılı Kanun & İYS Yönetmeliği',
+      regex: /(?:from\s+['"](?:netgsm|mutlucell|iletimerkezi|vatansms)['"]|\.(?:messages\.create|sendSms)\()/i,
+      risk: 'Yüksek',
+      penalty_limit_2026: '14.309 TL - 42.930 TL (İYS / Ret hakkı ihlali)',
+      precedent_decision: 'Yargıtay 19. H.D. E. 2018/1204, K. 2019/3150',
+      recommendation: 'SMS gönderimi öncesinde alıcının İYS sisteminde geçerli onayı olup olmadığı kontrol edilmeli ve iletide ret imkânı sağlanmalıdır.'
+    },
+    {
+      id: 'TR-LAW-007',
+      category: 'kvkk_cross_border_cdn',
+      title: 'Google Fonts CDN Üzerinden Yurt Dışına Veri / IP Aktarımı',
+      law: '6698 sayılı KVKK m. 9 (Yurt Dışı Aktarım)',
+      regex: /(?:fonts\.googleapis\.com|fonts\.gstatic\.com)/i,
+      risk: 'Orta',
+      penalty_limit_2026: '17.092.242 TL (KVKK m.9)',
+      precedent_decision: 'LG München I 3 O 17493/20 & KVKK m.9',
+      recommendation: 'Google Fonts dinamik CDN çağrısı yerine fontlar projeye indirilip yerel olarak (self-host) sunulmalıdır (next/font veya @fontsource).'
+    },
+    {
+      id: 'TR-LAW-008',
+      category: 'kvkk_disclosure_consent',
+      title: 'Aydınlatma Metni ile Açık Rızanın Birleştirilmesi / Pre-ticked Onay',
+      law: '6698 sayılı KVKK m. 5 & m. 10',
+      regex: /(?:Aydınlatma\s+metnini\s+okudum.*(?:kabul|onay|açık\s+rıza)|kvkkAndConsent)/i,
+      risk: 'Yüksek',
+      penalty_limit_2026: '1.709.200 TL (KVKK m.10)',
+      precedent_decision: 'KVKK Kurulu 2020/917 Sayılı İlke Kararı',
+      recommendation: 'Aydınlatma metni onay kutusu içine alınamaz; açık rıza için bağımsız ve önceden işaretlenmemiş ayrı bir checkbox sunulmalıdır.'
     }
   ];
 
@@ -182,7 +226,7 @@ if (isJson || isCheck) {
   }
 
   const report = {
-    version: pkg.version || '1.1.1',
+    version: pkg.version || '1.2.0', // x-release-please-version
     timestamp: new Date().toISOString(),
     target_directory: projectRoot,
     scanned_files: filePaths.length,

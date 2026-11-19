@@ -98,6 +98,32 @@ try {
     fs.rmSync(jsonScanDir, { recursive: true, force: true });
   }
 
+  // Test 10: New rules (Supabase service_role, Google Fonts, SMS/IYS, Bundled consent)
+  const newRulesDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hukuk-newrules-'));
+  try {
+    const dummyClient = path.join(newRulesDir, 'app.tsx');
+    fs.writeFileSync(
+      dummyClient,
+      [
+        'const key = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;',
+        'const font = "https://fonts.googleapis.com/css2?family=Inter";',
+        'import { netgsm } from "netgsm";',
+        '<label>Aydınlatma metnini okudum ve kabul ediyorum</label>'
+      ].join('\n')
+    );
+
+    const jsonRaw = execFileSync('node', [cliPath, '--json'], { cwd: newRulesDir, encoding: 'utf8' });
+    const parsed = JSON.parse(jsonRaw);
+    assert.strictEqual(parsed.summary.total_findings, 4, 'Must detect all 4 new rule findings');
+    const categories = parsed.findings.map((f) => f.category);
+    assert.ok(categories.includes('database_rls_leak'), 'Must detect database_rls_leak');
+    assert.ok(categories.includes('kvkk_cross_border_cdn'), 'Must detect kvkk_cross_border_cdn');
+    assert.ok(categories.includes('commercial_message_iys'), 'Must detect commercial_message_iys');
+    assert.ok(categories.includes('kvkk_disclosure_consent'), 'Must detect kvkk_disclosure_consent');
+  } finally {
+    fs.rmSync(newRulesDir, { recursive: true, force: true });
+  }
+
   console.log('✓ install.js and install.sh security & integration tests passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });

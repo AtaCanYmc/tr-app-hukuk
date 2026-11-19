@@ -29,25 +29,25 @@ Yeni bir emsal karar eklerken aşağıdaki formatı koruyun:
 
 ## Başlıklara Göre Emsal Kararlar
 
-### 1. Ödeme Ekranı, Otomatik Yenileme ve Cayma Hakkı (6502 sayılı Kanun)
+### 1. Ödeme Ekranı, Ön Bilgilendirme ve Mesafeli Satış Sözleşmesi (6502 sayılı Kanun)
 
 #### Yargıtay 3. Hukuk Dairesi - E. 2021/4812, K. 2021/9340 (T. 07.10.2021)
 
-- **İlgili Kanun & Madde:** 6502 sayılı Tüketicinin Korunması Hakkında Kanun m. 48, Mesafeli Sözleşmeler Yönetmeliği m. 5 ve m. 9.
-- **Uyuşmazlık Konusu:** Tüketicinin bilgisi ve açık onayı olmadan aboneliğin otomatik yenilenmesi ve karttan çekim yapılması.
-- **Yargıtay İlkesi:** Tüketiciye sözleşme kurulmadan önce cayma hakkı, sözleşme süresi ve otomatik yenileme şartlarının açık ve anlaşılır biçimde bildirilmesi zorunludur. Tüketicinin açık iradesiyle onaylamadığı veya gizlenmiş maddelere dayanan otomatik tahsilatlar haksız şart niteliğindedir ve iadesi gerekir.
-- **Kod Denetimi Yansıması:** Ödeme ekranında otomatik yenileme şartı checkbox veya küçük punto arkasına saklanamaz; fiyatın yanında yenileme periyodu açıkça belirtilmeli ve kullanıcıdan onay alınmalıdır.
+- **İlgili Kanun & Madde:** 6502 sayılı Tüketicinin Korunması Hakkında Kanun m. 48, Mesafeli Sözleşmeler Yönetmeliği m. 5, m. 6 ve m. 9.
+- **Uyuşmazlık Konusu:** Tüketicinin bilgisi ve açık onayı olmadan aboneliğin otomatik yenilenmesi, Ön Bilgilendirme Formu gösterilmeden karttan çekim yapılması.
+- **Yargıtay İlkesi:** Tüketiciye sözleşme kurulmadan önce cayma hakkı, sözleşme süresi, nihai bedel ve otomatik yenileme şartlarının yer aldığı Ön Bilgilendirme Formu ile Mesafeli Satış Sözleşmesinin açık ve anlaşılır biçimde sunulup onaylatılması zorunludur. Tüketicinin açık iradesiyle onaylamadığı veya gizlenmiş maddelere dayanan otomatik tahsilatlar haksız şart niteliğindedir ve iadesi gerekir.
+- **Kod Denetimi Yansıması:** Ödeme butonundan önce Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi checkbox veya onay adımları zorunlu olmalı; onay kontrolü (`isTermsAccepted`) yapılmadan ödeme API'si çağrılmamalıdır.
 
 ---
 
-### 2. İletişim İzinleri ve Ticari İletiler (6563 sayılı Kanun)
+### 2. İletişim İzinleri, SMS ve İYS Denetimi (6563 sayılı Kanun & İYS Yönetmeliği)
 
 #### Yargıtay 19. Hukuk Dairesi - E. 2018/1204, K. 2019/3150 (T. 09.05.2019)
 
-- **İlgili Kanun & Madde:** 6563 sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun m. 6 ve m. 8.
-- **Uyuşmazlık Konusu:** Tüketicinin önceden alınmış onayı olmaksızın tanıtım ve kampanya içerikli SMS/e-posta gönderimi ve ret imkânı sunulmaması.
-- **Yargıtay İlkesi:** Ticari elektronik iletilerde onay alma yükümlülüğü ve bu onayın alındığını ispat külfeti hizmet sağlayıcıya aittir. Gönderilen her iletide alıcıya ret hakkını kullanabileceği kolay ve ücretsiz bir yöntem sunulmalıdır.
-- **Kod Denetimi Yansıması:** Kodda kullanıcı kaydı veya işlem sonrası tetiklenen e-posta/SMS servislerinde opt-in kaydı bulunmalıdır. Tüm pazarlama şablonlarında çalışan bir abonelikten çıkış (`unsubscribe`) bağlantısı bulunmak zorundadır.
+- **İlgili Kanun & Madde:** 6563 sayılı Elektronik Ticaretin Düzenlenmesi Hakkında Kanun m. 6 ve m. 8; Ticari İletişim ve Ticari Elektronik İletiler Hakkında Yönetmelik (İYS Hükümleri).
+- **Uyuşmazlık Konusu:** Tüketicinin önceden alınmış İYS veya doğrudan onayı olmaksızın tanıtım ve kampanya içerikli SMS/e-posta gönderimi ve ret imkânı sunulmaması.
+- **Yargıtay İlkesi:** Ticari elektronik iletilerde onay alma yükümlülüğü ve bu onayın alındığını ispat külfeti hizmet sağlayıcıya aittir. İleti Yönetim Sistemi (İYS) kaydı ve onayı bulunmayan alıcılara kampanya gönderimi yapılamaz. Gönderilen her iletide alıcıya ret hakkını kullanabileceği kolay ve ücretsiz bir yöntem (SMS ret kodu, e-posta unsubscribe bağlantısı) sunulmalıdır.
+- **Kod Denetimi Yansıması:** E-posta veya SMS gönderen servis çağrılarından önce alıcının İYS izin durumu (`checkIysConsent`) sorgulanmalı; şablonlarda ret mekanizması bulunmalıdır.
 
 ---
 
@@ -73,11 +73,33 @@ Yeni bir emsal karar eklerken aşağıdaki formatı koruyun:
 
 ---
 
-### 5. Kişisel Verilerin Hukuka Aykırı Ele Geçirilmesi / Kaydedilmesi (6698 & TCK m.135-136)
+### 5. Formlarda Aydınlatma ve Açık Rızanın Ayrılması İlkesi (6698 sayılı KVKK m.10 & m.5)
 
-#### Yargıtay 12. Ceza Dairesi - E. 2021/6105, K. 2022/4510 (T. 08.06.2022)
+#### KVKK Kurulu İlke Kararı - 27/02/2020 Tarih ve 2020/917 Sayılı Karar (ve 2019/387 Sayılı Karar)
 
-- **İlgili Kanun & Madde:** TCK m. 135 (Kişisel Verilerin Kaydedilmesi), TCK m. 136 (Verileri Hukuka Aykırı Olarak Verme veya Ele Geçirme), 6698 sayılı KVKK m. 10.
-- **Uyuşmazlık Konusu:** Mobil uygulama üzerinden kullanıcının açık rızası ve aydınlatması olmaksızın cihaz kimliği, rehber veya konum bilgilerinin arka planda toplanıp üçüncü parti sunuculara aktarılması.
-- **Yargıtay İlkesi:** Kişinin açık rızası ve kanuni aydınlatma yapılmadan, uygulamanın işleviyle ilgisiz biçimde arka planda kişisel veri toplanması ve iletilmesi TCK m. 135 ve 136 kapsamında cezai sorumluluk doğurur.
-- **Kod Denetimi Yansıması:** Uygulama izinleri (GPS, rehber, kamera vb.) sadece uygulamanın temel fonksiyonu için gereken anlarda istenmeli; analitik veya reklam SDK'larına veri akışı aydınlatma metninde açıkça belirtilmeli ve rıza alınmalıdır.
+- **İlgili Kanun & Madde:** 6698 sayılı KVKK m. 5, m. 10; Aydınlatma Yükümlülüğünün Yerine Getirilmesinde Uyulacak Usul ve Esaslar Hakkında Tebliğ.
+- **Uyuşmazlık Konusu:** Web ve mobil kayıt formlarında Aydınlatma Metni ile Açık Rıza metninin tek bir kutucuk altında birleştirilmesi, rızanın hizmet şartı koşulması.
+- **Kurul İlkesi:** Aydınlatma yükümlülüğü ile açık rıza alma şartı hukuken birbirinden tamamen farklı müesseselerdir. Aydınlatma tek taraflı bir bilgilendirmedir ve kullanıcıya onaylatılamaz. Açık rıza ise özgür iradeye dayanmalıdır. Aydınlatma metnini onay kutusu içine almak ("Aydınlatma metnini okudum ve kabul ediyorum/açık rıza veriyorum") açık rızayı sakatlar. Açık rıza ve aydınlatma ayrı tutulmalı, kutucuklar önceden işaretli (pre-ticked) olmamalıdır.
+- **Kod Denetimi Yansıması:** Formlarda Aydınlatma Metni link/modal olarak bilgilendirme amaçlı gösterilmeli; varsa açık rıza için ayrı, bağımsız ve önceden işaretlenmemiş bir checkbox sunulmalıdır.
+
+---
+
+### 6. Veri Güvenliği, Supabase / Veritabanı RLS ve 72 Saat İhlal Bildirimi (KVKK m.12)
+
+#### KVKK Kurulu Veri İhlali Kararı - 2021/1183 (ve Yemeksepeti / Marriot Emsalleri)
+
+- **İlgili Kanun & Madde:** 6698 sayılı KVKK m. 12/1 (Teknik Tedbirler) ve m. 12/5 (Veri İhlali Bildirimi).
+- **Uyuşmazlık Konusu:** Veritabanı güvenlik politikalarının (RLS vb.) açık bırakılması veya anahtar sızıntısı sonucu yetkisiz kişilerin verilere erişmesi ve ihlalin 72 saat içinde Kurul'a bildirilmemesi.
+- **Kurul İlkesi:** Veri sorumluları yetkisiz erişimi engellemek için veritabanı erişim kontrollerini (Row Level Security, anahtar saklama vb.) eksiksiz almakla yükümlüdür. Olası bir sızıntı durumunda ihlalin öğrenildiği andan itibaren en geç **72 saat içinde** Kurul'a ve veri sahiplerine bildirim zorunludur. Denetim logu ve anlık alarm mekanizması bulunmaması nedeniyle ihlali geç fark etmek veya bildirmemek ağır idari para cezası sebebidir.
+- **Kod Denetimi Yansıması:** Supabase `public` tablolarında RLS açık olmalı; `service_role` istemciye sızdırılmamalı; audit log ve anlık alert (Sentry, webhook vb.) tanımlanmalıdır.
+
+---
+
+### 7. Yurt Dışına Veri Aktarımı ve Google Fonts Emsali (KVKK m.9)
+
+#### LG München I (Münih Eyalet Mahkemesi) - 20.01.2022, 3 O 17493/20
+
+- **İlgili Kanun & Madde:** 6698 sayılı KVKK m. 9 (ve GDPR m. 6, m. 44).
+- **Uyuşmazlık Konusu:** Web sitesinde Google Fonts'un dinamik olarak Google sunucularından (`fonts.googleapis.com`) çağrılması nedeniyle kullanıcının IP adresinin rızasız olarak ABD sunucularına aktarılması.
+- **Mahkeme / Kurul İlkesi:** Dinamik yazı tipi (Google Fonts CDN) çağrısı sırasında son kullanıcının kişisel verisi niteliğindeki IP adresi kullanıcının açık rızası olmaksızın harici/yurt dışı sunucuya iletilmektedir. Fontların yerel olarak barındırılması (self-host) teknik olarak mümkünken dinamik çekilmesi hukuka aykırıdır.
+- **Kod Denetimi Yansıması:** Harici Google Fonts CDN çağrıları yerine font dosyaları projeye indirilip (`woff2`) kendi sunucusundan servis edilmelidir (`next/font`, `@fontsource/*` vb.).
