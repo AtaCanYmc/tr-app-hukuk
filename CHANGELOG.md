@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1](https://github.com/AtaCanYmc/tr-app-hukuk/compare/tr-app-hukuk-v1.3.0...tr-app-hukuk-v1.3.1) (2026-11-19)
+
+
+### Bug Fixes
+
+* **ci:** fix release-please condition, add workflows permission and clean tag push ([5c1076d](https://github.com/AtaCanYmc/tr-app-hukuk/commit/5c1076d47cec5aa2abddad5a4cbb1201e2e27de9))
+* **ci:** remove invalid workflows permission key ([d46cac1](https://github.com/AtaCanYmc/tr-app-hukuk/commit/d46cac1b922a163c80dcd10a265c7ec801876c1a))
+
 ## [1.3.0](https://github.com/AtaCanYmc/tr-app-hukuk/compare/tr-app-hukuk-v1.2.0...tr-app-hukuk-v1.3.0) (2026-11-19)
 
 
