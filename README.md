@@ -5,6 +5,7 @@
 **Yapay zeka kodlama asistanları için Türkiye mevzuatı ve KVKK denetim yeteneği.**
 
 [![Lisans: MIT](https://img.shields.io/badge/Lisans-MIT-blue.svg)](LICENSE)
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-tr--app--hukuk--pr--bot-blue.svg?logo=github)](https://github.com/marketplace/actions/tr-app-hukuk-pr-bot)
 [![CI](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml/badge.svg)](https://github.com/AtaCanYmc/tr-app-hukuk/actions/workflows/ci.yml)
 [![Yetenek: AI Agent](https://img.shields.io/badge/Yetenek-AI%20Agent-purple.svg)](skills/tr-app-hukuk/SKILL.md)
 [![Durum: Kullanıma Hazır](https://img.shields.io/badge/Durum-Kullan%C4%B1ma%20Haz%C4%B1r-brightgreen.svg)](ROADMAP.md)
@@ -196,7 +197,7 @@ Copilot Chat üzerinde `@workspace .github/skills/tr-app-hukuk/SKILL.md kurallar
 
 ### Yöntem 6: GitHub Actions Hibrit PR Botu
 
-Projenizin Pull Request'lerinde otomatik yasal uyumluluk denetimi ve PR yorumu almak için `.github/workflows/hukuk.yml` dosyanıza ekleyin:
+Projenizin Pull Request'lerinde otomatik yasal uyumluluk denetimi ve PR yorumu almak için GitHub Marketplace üzerinden ([tr-app-hukuk PR Bot](https://github.com/marketplace/actions/tr-app-hukuk-pr-bot)) veya doğrudan `.github/workflows/hukuk.yml` dosyanıza ekleyin:
 
 ```yaml
 name: Hukuki Denetim

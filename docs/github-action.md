@@ -2,7 +2,9 @@
 
 # GitHub Action ve PR Denetim Botu
 
-Bu doküman, `tr-app-hukuk` GitHub Action bileşeninin mimarisini, yapılandırma parametrelerini ve sürekli entegrasyon (CI/CD) iş akışlarına entegrasyonunu açıklar.
+[![GitHub Marketplace](https://img.shields.io/badge/Marketplace-tr--app--hukuk--pr--bot-blue.svg?logo=github)](https://github.com/marketplace/actions/tr-app-hukuk-pr-bot)
+
+Bu doküman, `tr-app-hukuk` GitHub Action bileşeninin mimarisini, yapılandırma parametrelerini ve sürekli entegrasyon (CI/CD) iş akışlarına entegrasyonunu açıklar. Resmi Marketplace sayfasına [GitHub Marketplace: tr-app-hukuk PR Bot](https://github.com/marketplace/actions/tr-app-hukuk-pr-bot) adresinden ulaşabilirsiniz.
 
 ---
 
