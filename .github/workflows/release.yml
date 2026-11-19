@@ -18,3 +18,25 @@ jobs:
         with:
           config-file: release-please-config.json
           manifest-file: .release-please-manifest.json
+
+      - name: Checkout repository
+        if: ${{ steps.release.outputs.releases_created }}
+        uses: actions/checkout@v4
+
+      - name: Update Floating Major and Version Tags
+        if: ${{ steps.release.outputs.releases_created }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          VERSION=$(node -p "require('./package.json').version")
+          MAJOR="v$(echo $VERSION | cut -d. -f1)"
+
+          echo "Updating tags for version: $VERSION (Major: $MAJOR)"
+
+          # Exact tag (v1.x.x) and floating major tag (v1)
+          git tag -fa "v$VERSION" -m "Release v$VERSION"
+          git tag -fa "$MAJOR" -m "Release $MAJOR"
+
+          git push origin "v$VERSION" --force
+          git push origin "$MAJOR" --force
