@@ -7,7 +7,7 @@ import { fileURLToPath } from 'node:url';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const sourceDir = path.join(__dirname, 'skills', 'tr-app-hukuk');
 const pkgPath = path.join(__dirname, 'package.json');
-const pkg = fs.existsSync(pkgPath) ? JSON.parse(fs.readFileSync(pkgPath, 'utf8')) : { version: '1.2.0' }; // x-release-please-version
+const pkg = fs.existsSync(pkgPath) ? JSON.parse(fs.readFileSync(pkgPath, 'utf8')) : { version: '1.3.0' }; // x-release-please-version
 
 const TARGETS = Object.freeze({
   claude: path.join(process.cwd(), '.claude', 'skills', 'tr-app-hukuk'),
@@ -226,7 +226,7 @@ if (isJson || isCheck) {
   }
 
   const report = {
-    version: pkg.version || '1.2.0', // x-release-please-version
+    version: pkg.version || '1.3.0', // x-release-please-version
     timestamp: new Date().toISOString(),
     target_directory: projectRoot,
     scanned_files: filePaths.length,
