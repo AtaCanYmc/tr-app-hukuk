@@ -227,6 +227,8 @@ jobs:
           fail-on-risk: 'true'
 ```
 
+Tüm model seçenekleri, yetkilendirme ayarları ve gelişmiş yapılandırmalar için [GitHub Action ve PR Botu Kılavuzu](docs/github-action.md) belgesini inceleyin.
+
 ---
 
 ## Hızlı Başlangıç ve Kullanım Senaryoları
@@ -330,6 +332,8 @@ tr-app-hukuk/
 │   └── dependabot.yml                   # Haftalık bağımlılık ve GitHub Actions güncellemeleri
 ├── assets/
 │   └── logo.svg                         # Vektörel açık/koyu tema uyumlu logo
+├── docs/
+│   └── github-action.md                 # GitHub Action ve PR botu entegrasyon kılavuzu
 ├── scripts/
 │   └── pr-bot.js                        # GitHub Actions hibrit PR botu ve LLM entegrasyonu
 ├── skills/
@@ -388,6 +392,7 @@ Evet. `npx github:AtaCanYmc/tr-app-hukuk --target=all` komutunu çalıştırarak
 
 ## Yönetişim ve Belgeler
 
+- [GitHub Action ve PR Botu Kılavuzu](docs/github-action.md)
 - [Katkı Kılavuzu (Contributing)](CONTRIBUTING.md)
 - [Güvenlik Politikası (Security Policy)](SECURITY.md)
 - [Teknik Yol Haritası (Roadmap)](ROADMAP.md)
