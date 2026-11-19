@@ -201,21 +201,39 @@ Yeteneği kurduktan sonra yapay zeka asistanınızın sohbet ekranına aşağıd
 
 > **Komut:** `"Projemi hukuki olarak tara"` veya `"Uygulamamı Türkiye yasalarına göre denetle"`
 
-Asistan projenin platformunu, harici servislerini ve toplanan kullanıcı verilerini tespit eder. Altı başlık altında bulguları tablo halinde listeler.
+Asistan projenin platformunu, harici servislerini ve toplanan kullanıcı verilerini tespit eder. Yedi yasal başlık altında bulguları dosya ve satır referanslarıyla tablo halinde listeler.
 
-### Senaryo 2: Yurt Dışı Veri Çıkışı ve KVKK Taraması
+### Senaryo 2: Veritabanı, Supabase RLS ve Gizli Anahtar Denetimi
 
-> **Komut:** `"KVKK m.9 ve m.12 kapsamında yurt dışı veri çıkışlarımı ve yazı tipi CDN isteklerimi incele"`
+> **Komut:** `"Veritabanı güvenliği, Supabase RLS politikaları ve sızdırılmış gizli anahtarlar için denetim yap"`
 
-Harici Google Fonts, Sentry, Mixpanel, Firebase veya Datadog SDK çağrılarını inceler. Kullanıcı IP adresi, telemetri veya form girdilerinin yurt dışı sunuculara aktarılıp aktarılmadığını tespit eder.
+Supabase tablolarında Row Level Security (RLS) etkinliğini, güvenlik politikalarını ve istemciye sızan `service_role` gibi yetkili anahtarları tarar.
 
-### Senaryo 3: Ödeme ve Abonelik Ekranı Denetimi
+### Senaryo 3: Yurt Dışı Veri Çıkışı, Google Fonts ve CDN Taraması
 
-> **Komut:** `"6502 sayılı Kanun kapsamında ödeme ve abonelik iptal akışlarımı denetle"`
+> **Komut:** `"KVKK m.9 kapsamında yurt dışı sunuculara giden istekleri ve harici font CDN çağrılarını listele"`
 
-Abonelik iptal mekanizmalarını, yenileme periyotlarını, deneme sürümü sonu otomatik çekim şartlarını ve onay adımlarını kontrol eder.
+Google Fonts (`fonts.googleapis.com`), harici CDN'ler ve analitik SDK'larını listeler. Fontların yerel sunucuya (`next/font`, `@fontsource/*` vb.) taşınması için self-host rehberi sunar.
 
-### Senaryo 4: Rapor Dosyası Üretimi ve Düzeltme
+### Senaryo 4: Ticari İleti, SMS ve İYS Onay Denetimi
+
+> **Komut:** `"Pazarlama e-postası ve SMS gönderimlerinde İYS ve ticari ileti onaylarını kontrol et"`
+
+E-posta ve SMS gönderim kodlarını inceler. İleti Yönetim Sistemi (İYS) sorgulamasının yapılıp yapılmadığını, ret hakkı (unsubscribe / SMS ret kodu) ve MERSİS/unvan bilgilerini denetler.
+
+### Senaryo 5: Formlarda Aydınlatma ve Açık Rıza Ayrımı
+
+> **Komut:** `"Kayıt, iletişim ve bülten formlarında KVKK aydınlatma linki ve açık rıza onaylarını incele"`
+
+Formlarda Aydınlatma Metni linkinin varlığını ve açık rıza onayının aydınlatma metninden ayrı tutulup tutulmadığını (birleşik onay yasağı ve pre-ticked kontrolü) doğrular.
+
+### Senaryo 6: Ödeme Ekranı, Ön Bilgilendirme ve Mesafeli Satış Sözleşmesi
+
+> **Komut:** `"6502 sayılı Kanun kapsamında ödeme, Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi onaylarını denetle"`
+
+Ödeme öncesinde Ön Bilgilendirme Formu ve Mesafeli Satış Sözleşmesi onay adımlarının zorunlu tutulup tutulmadığını, cayma hakkını ve otomatik yenileme şartlarını inceler.
+
+### Senaryo 7: Rapor Dosyası Üretimi ve Düzeltme
 
 Tarama bittiğinde asistan şu soruyu yöneltir:
 > *"Bu denetim sonuçlarını projenize `hukuk-denetim-raporu.md` dosyası olarak kaydetmek ister misiniz?"*
@@ -230,12 +248,13 @@ Aşağıdaki cezai üst sınırlar, 2026 yılı için belirlenen yüzde 25,49 ye
 
 | No | Yasal Dayanak | Denetim Kapsamı | 2026 Yasal Üst Sınırı | İlgili Madde |
 | --- | --- | --- | --- | --- |
-| **1** | **6502 sayılı Kanun** | Ödeme ekranı, abonelik yenileme periyodu, cayma hakkı ve gizli yenileme şartları | **10.837.065 TL** *(Haksız ticari uygulama)*<br>**3.973 TL** *(İşlem başına)* | m.62, m.77/1-a, m.77/13 |
-| **2** | **6563 sayılı Kanun** | Ticari iletilerde gönderen kimliği, ret hakkı bağlantısı ve onaysız gönderimler | **42.930 TL** *(Ret linki yokluğu)*<br>**28.620 TL** *(Kimlik eksikliği)* | m.12 |
-| **3** | **5846 sayılı FSEK** | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | **365.000 TL** *(Adli para cezası veya hapis)* | m.71 |
+| **1** | **6502 sayılı Kanun** | Ödeme ekranı, Ön Bilgilendirme Formu (ÖBF) ve Mesafeli Satış Sözleşmesi (MSS) onayı, otomatik yenileme ve cayma hakkı | **10.837.065 TL** *(Haksız ticari uygulama)*<br>**3.973 TL** *(İşlem başına)* | m.48, m.62, m.77/1-a, m.77/13 |
+| **2** | **6563 sayılı Kanun & İYS** | Ticari e-posta ve SMS gönderimleri, İYS onay sorgulaması, ret hakkı (unsubscribe / RET kodu) ve gönderici kimliği | **42.930 TL** *(Ret imkânı yokluğu)*<br>**28.620 TL** *(Kimlik eksikliği)*<br>**14.309 TL** *(Onaysız ileti / İYS ihlali)* | m.6, m.8, m.12 |
+| **3** | **5846 sayılı FSEK** | Kullanıcı içerik yüklemelerinde hak sahipleri için uyar-kaldır mekanizması | **365.000 TL** *(Adli para cezası veya hapis)* | m.71, Ek m.4 |
 | **4** | **5651 sayılı Kanun** | Yer sağlayıcı künyesi, hukuka aykırı içerik şikayet kanalı ve trafik logları | **1.000.000 TL** *(Kanuni nominal tutar)* | m.5, m.6 |
-| **5** | **6698 sayılı KVKK** | Toplanan verilerin amacı, saklama süresi ve aydınlatma metninin ilk temastan önce sunulması | **1.709.200 TL** *(Aydınlatma yükümlülüğü)* | m.10, m.18/1-a |
-| **6** | **6698 sayılı KVKK** | Yurt dışına veri aktarımı ve veri güvenliği ihlalleri | **17.092.242 TL** *(Kurul tavan uygulaması)* | m.9, m.12, m.18/1-b |
+| **5** | **6698 sayılı KVKK** | Kayıt, iletişim ve bülten formlarında Aydınlatma Metni linki ve açık rızanın aydınlatmadan ayrı tutulması | **1.709.200 TL** *(Aydınlatma yükümlülüğü)* | m.5, m.10, m.18/1-a |
+| **6** | **6698 sayılı KVKK** | Yurt dışına veri aktarımı, Google Fonts ve harici CDN tespiti ile yerel barındırma (self-host) çözümleri | **17.092.242 TL** *(Yurt dışı aktarım ihlali)* | m.9, m.18/1-b |
+| **7** | **6698 sayılı KVKK** | Veritabanı / Supabase RLS denetimi, istemciye sızan service_role anahtarları ve 72 saat içinde Kurul'a ihlal bildirimi hazırlığı | **17.092.242 TL** *(Veri güvenliği tedbirleri)* | m.12, m.12/5, m.18/1-b |
 
 Detaylı kanun metinleri ve bent incelemeleri için [`skills/tr-app-hukuk/references`](skills/tr-app-hukuk/references) dizinine başvurabilirsiniz.
 
@@ -279,21 +298,24 @@ tr-app-hukuk/
 │   └── tr-app-hukuk/
 │       ├── references/
 │       │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme cezai üst limitleri
-│       │   ├── emsal-kararlar.md        # Yargıtay emsal kararları ve içtihat referansları
+│       │   ├── emsal-kararlar.md        # Yargıtay ve KVKK Kurulu emsal kararları
 │       │   ├── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
 │       │   ├── rapor-semasi.json        # JSON formatında denetim raporu şeması
-│       │   └── regex-desenleri.md       # Ödeme ve e-posta regex desen kütüphanesi
+│       │   └── regex-desenleri.md       # Ödeme, SMS, İYS, form, Supabase ve CDN regex kütüphanesi
 │       ├── README.md                    # Yetenek alt modül kılavuzu
 │       └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı
 ├── .editorconfig                        # Çapraz editör biçimlendirme kuralları
 ├── .gitattributes                       # Çapraz platform satır sonu ve arşiv yapılandırması
 ├── .gitignore                           # Git izleme dışı dosya tanımları
 ├── .markdownlint.json                   # Markdown biçimlendirme kuralları
+├── .markdownlintignore                 # Markdownlint yok sayma kuralları
+├── .release-please-manifest.json        # Release Please sürüm manifestosu
 ├── CHANGELOG.md                         # Sürüm değişiklik kayıtları
 ├── CODE_OF_CONDUCT.md                   # Katılımcı davranış kuralları
 ├── CONTRIBUTING.md                      # Katkı kılavuzu ve Conventional Commits standardı
 ├── LICENSE                              # MIT Lisansı
 ├── README.md                            # Ana depo dokümantasyonu
+├── release-please-config.json           # Release Please çoklu dosya sürümleme yapılandırması
 ├── ROADMAP.md                           # Teknik geliştirme kilometre taşları
 ├── SECURITY.md                          # Güvenlik açığı bildirim politikası ve SLA
 ├── install.js                           # Sıfır bağımlılıklı taşınabilir kurulum CLI betiği

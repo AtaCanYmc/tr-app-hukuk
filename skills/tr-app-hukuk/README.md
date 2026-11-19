@@ -30,10 +30,10 @@ Modül, ana deponun kök dizininde `npx skills add AtaCanYmc/tr-app-hukuk` veya 
 skills/tr-app-hukuk/
 ├── references/
 │   ├── ceza-limitleri-2026.md   # 2026 yılı yeniden değerleme oranıyla hesaplanan cezai üst sınırlar
-│   ├── emsal-kararlar.md        # Yargıtay içtihat ve emsal karar referansları / arama şablonu
+│   ├── emsal-kararlar.md        # Yargıtay ve KVKK Kurulu emsal kararları ve arama şablonu
 │   ├── kanun-maddeleri.md       # İlgili kanun maddeleri ve fıkra gerekçeleri
 │   ├── rapor-semasi.json        # JSON formatında denetim raporu şeması (JSON Schema)
-│   └── regex-desenleri.md       # TypeScript ve Python ödeme / e-posta regex desen kütüphanesi
+│   └── regex-desenleri.md       # Ödeme, SMS, İYS, sözleşme, Supabase ve CDN regex kütüphanesi
 ├── README.md                    # Bu doküman
 └── SKILL.md                     # Asistanın yürüttüğü ana sistem talimatı
 ```
@@ -54,9 +54,9 @@ Yapay zeka asistanı sohbet penceresinde aşağıdaki ifadelerden herhangi biri 
 
 ## Denetim Akışı
 
-1. **Bağlam Analizi:** Projenin hedef platformu (iOS, Android, Web), harici entegrasyonları (ödeme, analitik, e-posta, CDN) ve toplanan kullanıcı veri kategorileri tespit edilir.
+1. **Bağlam Analizi:** Projenin hedef platformu (iOS, Android, Web), harici entegrasyonları (ödeme, analitik, e-posta, SMS, CDN) ve toplanan kullanıcı veri kategorileri tespit edilir.
 2. **Statik Kod Taraması:** Salt okunur modda kodlar incelenir; her bulgu kesin dosya ve satır referansıyla (`dosya_yolu:satır_no`) eşleştirilir.
-3. **Mevzuat ve Emsal Karar Eşleme:** Altı ana yasal başlık altında Durum, Bulgu, Risk Seviyesi ve Çözüm Önerisi tablosu oluşturulur. Cihazda `yargitay-karar-cli` mevcutsa canlı Yargıtay kararları taranır; yoksa kullanıcıya kurulum teklif edilir veya yerleşik `references/emsal-kararlar.md` içtihatları kullanılır.
+3. **Mevzuat ve Emsal Karar Eşleme:** Yedi ana yasal başlık altında Durum, Bulgu, Risk Seviyesi ve Çözüm Önerisi tablosu oluşturulur. Cihazda `yargitay-karar-cli` mevcutsa canlı Yargıtay kararları taranır; yoksa kullanıcıya kurulum teklif edilir veya yerleşik `references/emsal-kararlar.md` içtihatları kullanılır.
 4. **Opsiyonel Rapor Üretimi:** Kullanıcı onay verirse kök dizinde yapısal bir `hukuk-denetim-raporu.md` dosyası üretilir.
 5. **Düzeltme Adımı:** Kullanıcının seçtiği maddeler için hedefe yönelik en az değişiklikle (minimal diff) düzeltme kodları sunulur.
 
@@ -66,7 +66,7 @@ Yapay zeka asistanı sohbet penceresinde aşağıdaki ifadelerden herhangi biri 
 
 - **`SKILL.md`**: Asistanın uyacağı salt okunur denetim prensipleri ve raporlama kuralları.
 - **`references/ceza-limitleri-2026.md`**: 2026 yılı yeniden değerleme oranı (%25,49) ile güncellenen idari para cezası limitleri.
-- **`references/emsal-kararlar.md`**: Tüketici, telif, ticari ileti, yer sağlayıcı ve veri suçları için Yargıtay emsal kararları ve arama şablonu.
+- **`references/emsal-kararlar.md`**: Tüketici, telif, ticari ileti, yer sağlayıcı, veri ihlali ve veri güvenliği için emsal kararlar.
 - **`references/kanun-maddeleri.md`**: 6502, 6563, 5846, 5651 ve 6698 sayılı kanunların ilgili maddeleri.
 - **`references/rapor-semasi.json`**: Makine tarafından okunabilir JSON denetim raporu şeması.
-- **`references/regex-desenleri.md`**: TypeScript ve Python ödeme sağlayıcıları, abonelik akışları ve e-posta kütüphaneleri için regex kalıpları.
+- **`references/regex-desenleri.md`**: TypeScript ve Python ödeme, SMS, İYS, sözleşme, Supabase ve CDN regex kalıpları.
