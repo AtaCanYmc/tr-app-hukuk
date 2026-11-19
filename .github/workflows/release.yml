@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  workflows: write
 
 jobs:
   release-please:
@@ -20,11 +21,13 @@ jobs:
           manifest-file: .release-please-manifest.json
 
       - name: Checkout repository
-        if: ${{ steps.release.outputs.releases_created }}
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
-      - name: Update Floating Major and Version Tags
-        if: ${{ steps.release.outputs.releases_created }}
+      - name: Update Floating Major Tag
+        if: ${{ steps.release.outputs.releases_created == 'true' }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -32,11 +35,9 @@ jobs:
           VERSION=$(node -p "require('./package.json').version")
           MAJOR="v$(echo $VERSION | cut -d. -f1)"
 
-          echo "Updating tags for version: $VERSION (Major: $MAJOR)"
+          echo "Updating floating major tag: $MAJOR (Version: $VERSION)"
 
-          # Exact tag (v1.x.x) and floating major tag (v1)
-          git tag -fa "v$VERSION" -m "Release v$VERSION"
+          # Eski referansı temizleyip yeni commit'e force push et
+          git push origin ":refs/tags/$MAJOR" || true
           git tag -fa "$MAJOR" -m "Release $MAJOR"
-
-          git push origin "v$VERSION" --force
           git push origin "$MAJOR" --force
