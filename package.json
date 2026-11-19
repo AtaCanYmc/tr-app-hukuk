@@ -9,7 +9,9 @@
   },
   "files": [
     "install.js",
-    "skills/"
+    "scripts/",
+    "skills/",
+    "action.yml"
   ],
   "scripts": {
     "test": "node test.js"

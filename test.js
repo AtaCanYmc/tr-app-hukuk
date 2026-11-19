@@ -124,6 +124,48 @@ try {
     fs.rmSync(newRulesDir, { recursive: true, force: true });
   }
 
+  // Test 11: Hybrid GitHub Action PR Bot (scripts/pr-bot.js)
+  const botPath = path.resolve('./scripts/pr-bot.js');
+  const botTestDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hukuk-bot-'));
+  try {
+    // 11.1: Temiz dizinde 0 bulgu ile başarılı çıkış
+    const cleanOutput = execFileSync('node', [botPath], {
+      cwd: botTestDir,
+      encoding: 'utf8',
+      env: { ...process.env, FAIL_ON_RISK: 'true', ENABLE_PR_COMMENT: 'false' }
+    });
+    assert.ok(cleanOutput.includes('Tebrikler!'), 'PR Bot clean run must succeed');
+
+    // 11.2: Riskli dosyada FAIL_ON_RISK=false ile rapor üretimi ve mock LLM desteği
+    const riskyFile = path.join(botTestDir, 'checkout.ts');
+    fs.writeFileSync(riskyFile, 'const key = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;\n');
+
+    const botOutput = execFileSync('node', [botPath], {
+      cwd: botTestDir,
+      encoding: 'utf8',
+      env: {
+        ...process.env,
+        FAIL_ON_RISK: 'false',
+        ENABLE_PR_COMMENT: 'false',
+        MOCK_LLM_RESPONSE: '### Yapay Zeka Hukuk Mütalaası: service_role anahtarı sızdırılmış!'
+      }
+    });
+    assert.ok(botOutput.includes('tr-app-hukuk Yasal Uyumluluk Raporu'), 'PR Bot must generate table report');
+    assert.ok(botOutput.includes('Yapay Zeka Hukuk Mütalaası'), 'PR Bot must include LLM analysis when available');
+
+    // 11.3: FAIL_ON_RISK=true iken yüksek riskte exit 1 fırlatması
+    assert.throws(
+      () => execFileSync('node', [botPath], {
+        cwd: botTestDir,
+        encoding: 'utf8',
+        env: { ...process.env, FAIL_ON_RISK: 'true', ENABLE_PR_COMMENT: 'false' }
+      }),
+      'PR Bot must fail with exit code 1 when high-risk findings exist and FAIL_ON_RISK=true'
+    );
+  } finally {
+    fs.rmSync(botTestDir, { recursive: true, force: true });
+  }
+
   console.log('✓ install.js and install.sh security & integration tests passed');
 } finally {
   fs.rmSync(tempDir, { recursive: true, force: true });

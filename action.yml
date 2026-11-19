@@ -1,0 +1,50 @@
+name: 'tr-app-hukuk PR Bot'
+description: 'PR kod değişikliklerini Türkiye tüketici, ticaret ve KVKK mevzuatına göre denetleyen hibrit (Statik + LLM) GitHub Action.'
+author: 'AtaCanYmc'
+
+branding:
+  icon: 'shield'
+  color: 'blue'
+
+inputs:
+  github-token:
+    description: 'PR altına yorum ekleyebilmek için GitHub Token'
+    required: false
+    default: ${{ github.token }}
+  gemini-api-key:
+    description: 'Google Gemini API anahtarı (Derin LLM analizi için opsiyonel)'
+    required: false
+  anthropic-api-key:
+    description: 'Anthropic Claude API anahtarı (Derin LLM analizi için opsiyonel)'
+    required: false
+  openai-api-key:
+    description: 'OpenAI API anahtarı (Derin LLM analizi için opsiyonel)'
+    required: false
+  model:
+    description: 'Kullanılacak LLM modeli (Örn: gemini-2.5-flash, claude-3-5-haiku, gpt-4o-mini)'
+    required: false
+    default: 'gemini-2.5-flash'
+  fail-on-risk:
+    description: 'Yüksek riskli yasal ihlal tespit edildiğinde kontrolü başarısız say (true/false)'
+    required: false
+    default: 'true'
+  pr-comment:
+    description: 'PR altına detaylı hukuki denetim ve düzeltme tablosu yorumu yaz (true/false)'
+    required: false
+    default: 'true'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Run tr-app-hukuk Hybrid PR Bot
+      shell: bash
+      env:
+        GITHUB_TOKEN: ${{ inputs.github-token }}
+        GEMINI_API_KEY: ${{ inputs.gemini-api-key }}
+        ANTHROPIC_API_KEY: ${{ inputs.anthropic-api-key }}
+        OPENAI_API_KEY: ${{ inputs.openai-api-key }}
+        BOT_MODEL: ${{ inputs.model }}
+        FAIL_ON_RISK: ${{ inputs.fail-on-risk }}
+        ENABLE_PR_COMMENT: ${{ inputs.pr-comment }}
+      run: |
+        node "${{ github.action_path }}/scripts/pr-bot.js"

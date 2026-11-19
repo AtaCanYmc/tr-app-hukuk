@@ -34,6 +34,7 @@ Harici paket yükleme zorunluluğu yoktur. Node.js standart kütüphanesini kull
   - [Yöntem 3: Windows PowerShell Kurucusu](#yöntem-3-windows-powershell-kurucusu)
   - [Yöntem 4: Doğrudan Kurulum (npx github:)](#yöntem-4-doğrudan-kurulum-npx-github)
   - [Yöntem 5: Manuel Yapılandırma](#yöntem-5-manuel-yapılandırma)
+  - [Yöntem 6: GitHub Actions Hibrit PR Botu](#yöntem-6-github-actions-hibrit-pr-botu)
 - [Hızlı Başlangıç ve Kullanım Senaryoları](#hızlı-başlangıç-ve-kullanım-senaryoları)
 - [Denetim Kapsamı ve Cezai Üst Sınırlar](#denetim-kapsamı-ve-cezai-üst-sınırlar)
 - [Çalışma Mimarisi](#çalışma-mimarisi)
@@ -193,6 +194,41 @@ Copilot Chat üzerinde `@workspace .github/skills/tr-app-hukuk/SKILL.md kurallar
 
 ---
 
+### Yöntem 6: GitHub Actions Hibrit PR Botu
+
+Projenizin Pull Request'lerinde otomatik yasal uyumluluk denetimi ve PR yorumu almak için `.github/workflows/hukuk.yml` dosyanıza ekleyin:
+
+```yaml
+name: Hukuki Denetim
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      # Hibrit GitHub Action: Sıfır maliyetli statik filtre + Opsiyonel LLM analizi
+      - uses: AtaCanYmc/tr-app-hukuk@main
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Opsiyonel derin hukuki analiz için (Gemini / Claude / OpenAI):
+          gemini-api-key: ${{ secrets.GEMINI_API_KEY }}
+          fail-on-risk: 'true'
+```
+
+---
+
 ## Hızlı Başlangıç ve Kullanım Senaryoları
 
 Yeteneği kurduktan sonra yapay zeka asistanınızın sohbet ekranına aşağıdaki komutlardan birini verin:
@@ -294,6 +330,8 @@ tr-app-hukuk/
 │   └── dependabot.yml                   # Haftalık bağımlılık ve GitHub Actions güncellemeleri
 ├── assets/
 │   └── logo.svg                         # Vektörel açık/koyu tema uyumlu logo
+├── scripts/
+│   └── pr-bot.js                        # GitHub Actions hibrit PR botu ve LLM entegrasyonu
 ├── skills/
 │   └── tr-app-hukuk/
 │       ├── references/
@@ -310,6 +348,7 @@ tr-app-hukuk/
 ├── .markdownlint.json                   # Markdown biçimlendirme kuralları
 ├── .markdownlintignore                 # Markdownlint yok sayma kuralları
 ├── .release-please-manifest.json        # Release Please sürüm manifestosu
+├── action.yml                           # GitHub Action tanımı (Hibrit PR Botu)
 ├── CHANGELOG.md                         # Sürüm değişiklik kayıtları
 ├── CODE_OF_CONDUCT.md                   # Katılımcı davranış kuralları
 ├── CONTRIBUTING.md                      # Katkı kılavuzu ve Conventional Commits standardı

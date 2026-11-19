@@ -30,9 +30,9 @@
 - [x] Ödeme öncesi Ön Bilgilendirme Formu (ÖBF) ve Mesafeli Satış Sözleşmesi (MSS) onay kontrolü (6502 sayılı Kanun m.48).
 - [x] Google Fonts ve CDN tespiti ile yerel barındırma (self-host) çözüm rehberi (KVKK m.9 & LG München emsali).
 - [x] Release Please manifestosu ve tüm depo genelinde versiyon senkronizasyonu (`extra-files`).
+- [x] Otomatik GitHub Actions hibrit PR denetim botu ve yasal risk raporlayıcısı (`action.yml` & `scripts/pr-bot.js`).
 
 ## [2.0.0] - Planlanan
 
-- [ ] Otomatik GitHub Actions PR denetim botu ve yasal risk raporlayıcısı.
 - [ ] Zengin metinli interaktif terminal arayüzü (TUI) ve filtreleme.
 - [ ] Mevzuat değişikliklerini ve Kurul ilke kararlarını otomatik izleyen senkronizasyon motoru.
