@@ -1,7 +1,7 @@
 ---
 name: tr-app-hukuk
 description: "Türkiye mevzuatı ve KVKK uyumluluğu için AI kod denetim yeteneği. Mobil uygulama ve web projelerini tüketici hukuku, ticari ileti, telif, yer sağlayıcı, veri güvenliği ve KVKK kapsamında tarar."
-version: 1.3.0 # x-release-please-version
+version: 1.3.1 # x-release-please-version
 ---
 
 # Hukuki Tarama Yeteneği (tr-app-hukuk)
@@ -128,7 +128,7 @@ Kullanıcı denetim sonucunu JSON formatında istediğinde veya komutta `--json`
 
 ```json
 {
-  "version": "1.3.0", // x-release-please-version
+  "version": "1.3.1", // x-release-please-version
   "timestamp": "ISO_8601_TIMESTAMP",
   "target_directory": "PROJE_KOK_DIZINI",
   "scanned_files": 10,
